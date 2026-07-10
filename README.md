@@ -39,3 +39,5 @@ npm run dev
 Deploy otomatis via GitHub Actions setiap push ke branch `main`.
 
 Server: `159.223.76.117` — Domain: `https://flexbatir.web.id`
+
+> Auto-deploy aktif via GitHub Actions.
