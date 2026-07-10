@@ -52,7 +52,6 @@ npm run build
 
 # 7. Fix permissions storage & cache
 echo "[7/7] Fixing permissions..."
-chown -R www-data:www-data storage bootstrap/cache
 chmod -R 775 storage bootstrap/cache
 
 echo ""
