@@ -40,13 +40,13 @@ Route::get('/clubs/{club}/members', [ClubController::class, 'members']);
 
 // Public segments
 Route::get('/segments', [SegmentController::class, 'index']);
-Route::get('/segments/{segment}', [SegmentController::class, 'show']);
-Route::get('/segments/{segment}/leaderboard', [SegmentController::class, 'leaderboard']);
+Route::get('/segments/{segment}', [SegmentController::class, 'show'])->where('segment', '[0-9]+');
+Route::get('/segments/{segment}/leaderboard', [SegmentController::class, 'leaderboard'])->where('segment', '[0-9]+');
 
 // Public challenges
 Route::get('/challenges', [ChallengeController::class, 'index']);
-Route::get('/challenges/{challenge}', [ChallengeController::class, 'show']);
-Route::get('/challenges/{challenge}/leaderboard', [ChallengeController::class, 'leaderboard']);
+Route::get('/challenges/{challenge}', [ChallengeController::class, 'show'])->where('challenge', '[0-9]+');
+Route::get('/challenges/{challenge}/leaderboard', [ChallengeController::class, 'leaderboard'])->where('challenge', '[0-9]+');
 
 // Protected routes
 Route::middleware('auth:sanctum')->group(function () {
