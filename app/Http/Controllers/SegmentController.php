@@ -76,7 +76,7 @@ class SegmentController extends Controller
      */
     public function show(Request $request, Segment $segment): JsonResponse
     {
-        if (!$segment->is_public && $segment->user_id !== $request->user()->id) {
+        if (!$segment->is_public && $segment->user_id !== $request->user()?->id) {
             return response()->json(['message' => 'Segmen ini bersifat privat.'], 403);
         }
 
