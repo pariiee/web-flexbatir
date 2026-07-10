@@ -47,7 +47,7 @@ $PHP artisan optimize
 
 # 6. Build assets frontend (kalau ada perubahan)
 echo "[6/7] Building frontend assets..."
-npm ci --omit=dev
+npm ci
 npm run build
 
 # 7. Fix permissions storage & cache
