@@ -10,15 +10,48 @@ use Illuminate\Support\Facades\Storage;
 class RouteController extends Controller
 {
     /**
+     * Map a UserRoute to the array shape expected by the Flutter client.
+     */
+    private function formatRoute(UserRoute $route): array
+    {
+        return [
+            'id'                          => $route->id,
+            'name'                        => $route->name,
+            'description'                 => $route->description,
+            'sport_type'                  => $route->type,          // Flutter uses sport_type
+            'distance_km'                 => $route->distance_km,   // computed: distance / 1000
+            'elevation_gain'              => $route->elevation_gain ? (int) $route->elevation_gain : null,
+            'estimated_duration_minutes'  => $route->estimated_duration, // Flutter uses _minutes suffix
+            'difficulty'                  => $route->difficulty ?? null,
+            'is_public'                   => (bool) $route->is_public,
+            'usage_count'                 => $route->times_used ?? 0, // Flutter uses usage_count
+            'start_lat'                   => $route->start_lat,
+            'start_lng'                   => $route->start_lng,
+            'end_lat'                     => $route->end_lat,
+            'end_lng'                     => $route->end_lng,
+            'map_preview_url'             => $route->map_image
+                ? asset('storage/' . $route->map_image)
+                : null,
+            'created_at'                  => $route->created_at?->toIso8601String(),
+        ];
+    }
+
+    /**
      * List all routes for authenticated user.
      */
     public function index(Request $request): JsonResponse
     {
-        $routes = UserRoute::where('user_id', $request->user()->id)
-            ->orderBy('created_at', 'desc')
-            ->paginate(15);
+        $request->validate([
+            'sport_type' => 'nullable|in:run,ride,swim,walk,hike,other',
+        ]);
 
-        return response()->json($routes);
+        $routes = UserRoute::where('user_id', $request->user()->id)
+            ->when($request->sport_type, fn($q) => $q->where('type', $request->sport_type))
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->map(fn($r) => $this->formatRoute($r));
+
+        return response()->json(['routes' => $routes]);
     }
 
     /**
@@ -44,9 +77,7 @@ class RouteController extends Controller
             'estimated_duration'   => 'nullable|integer|min:1',
             'estimated_calories'   => 'nullable|integer|min:0',
             'is_public'            => 'nullable|boolean',
-        ]);
-
-        $route = UserRoute::create([
+            'difficulty'           => 'nullable|in:easy,moderate,hard',
             ...$validated,
             'user_id' => $request->user()->id,
         ]);
@@ -67,10 +98,7 @@ class RouteController extends Controller
         }
 
         return response()->json([
-            'route' => array_merge($userRoute->toArray(), [
-                'distance_km' => $userRoute->distance_km,
-                'user'        => $userRoute->user->only(['id', 'name', 'username', 'avatar']),
-            ]),
+            'route' => $this->formatRoute($userRoute),
         ]);
     }
 
@@ -101,13 +129,14 @@ class RouteController extends Controller
             'estimated_duration'   => 'sometimes|nullable|integer|min:1',
             'estimated_calories'   => 'sometimes|nullable|integer|min:0',
             'is_public'            => 'sometimes|boolean',
+            'difficulty'           => 'sometimes|nullable|in:easy,moderate,hard',
         ]);
 
         $userRoute->update($validated);
 
         return response()->json([
             'message' => 'Rute berhasil diperbarui.',
-            'route'   => $userRoute->fresh(),
+            'route'   => $this->formatRoute($userRoute->fresh()),
         ]);
     }
 

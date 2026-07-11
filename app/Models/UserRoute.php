@@ -13,7 +13,7 @@ class UserRoute extends Model
         'waypoints', 'map_image',
         'start_lat', 'start_lng', 'end_lat', 'end_lng',
         'estimated_duration', 'estimated_calories',
-        'is_public', 'times_used',
+        'is_public', 'times_used', 'difficulty',
     ];
 
     protected $casts = [
