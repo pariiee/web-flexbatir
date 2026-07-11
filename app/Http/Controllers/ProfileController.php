@@ -99,6 +99,34 @@ class ProfileController extends Controller
     }
 
     /**
+     * Change user password.
+     */
+    public function changePassword(Request $request): JsonResponse
+    {
+        $request->validate([
+            'current_password' => 'required|string',
+            'password'         => 'required|string|min:8|confirmed',
+        ]);
+
+        $user = $request->user();
+
+        if (!\Illuminate\Support\Facades\Hash::check($request->current_password, $user->password)) {
+            return response()->json([
+                'message' => 'Password saat ini tidak sesuai.',
+                'errors'  => ['current_password' => ['Password saat ini tidak sesuai.']],
+            ], 422);
+        }
+
+        $user->update([
+            'password' => \Illuminate\Support\Facades\Hash::make($request->password),
+        ]);
+
+        return response()->json([
+            'message' => 'Password berhasil diubah.',
+        ]);
+    }
+
+    /**
      * Get public profile by username.
      * Juga return followers_count, following_count, dan is_following jika ada auth user.
      */

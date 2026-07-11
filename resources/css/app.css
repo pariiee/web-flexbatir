@@ -1,9 +1,148 @@
 @import 'tailwindcss';
+@import url('https://fonts.googleapis.com/css2?family=Germania+One&family=Roboto:wght@100;300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    /* Typography */
+    --font-sans: 'Roboto', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Germania One', serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+    /* Spacing — strict 4px baseline grid */
+    --spacing-1: 4px;
+    --spacing-2: 8px;
+    --spacing-3: 12px;
+    --spacing-4: 16px;
+    --spacing-6: 24px;
+    --spacing-8: 32px;
+
+    /* Background & Surface */
+    --color-background: #F9FAFB;
+    --color-surface: #FFFFFF;
+    --color-surface-variant: #F3F4F6;
+
+    /* Primary - Energetic Orange-Red */
+    --color-primary: #FA3C00;
+    --color-primary-dark: #D43300;
+    --color-primary-light: #FF6B3D;
+    --color-primary-surface: rgba(250, 60, 0, 0.10);
+
+    /* Secondary - Warm Orange */
+    --color-secondary: #F08321;
+    --color-secondary-light: #F5A654;
+    --color-secondary-surface: rgba(240, 131, 33, 0.10);
+
+    /* Text */
+    --color-text: #111827;
+    --color-text-secondary: #6B7280;
+    --color-text-hint: #9CA3AF;
+
+    /* Status */
+    --color-success: #16A34A;
+    --color-warning: #D97706;
+    --color-danger: #DC2626;
+    --color-info: #2563EB;
+
+    /* Divider */
+    --color-divider: #E5E7EB;
+
+    /* Skeuomorphic shadows */
+    --shadow-raised: 0 4px 0 #D1D5DB, 0 1px 3px #E5E7EB;
+    --shadow-pressed: 0 1px 0 #D1D5DB;
+    --shadow-card: 0 2px 8px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+}
+
+/* Base */
+:root {
+    color-scheme: light;
+}
+
+body {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+}
+
+/* Skeuomorphic raised button */
+.btn-raised {
+    background-color: var(--color-primary);
+    color: #ffffff;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 16px;
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: none;
+    box-shadow: var(--shadow-raised);
+    cursor: pointer;
+    transition: box-shadow 80ms ease, transform 80ms ease;
+    position: relative;
+    top: 0;
+}
+
+.btn-raised:hover {
+    background-color: var(--color-primary-dark);
+    box-shadow: 0 3px 0 #B02A00, 0 1px 3px #E5E7EB;
+}
+
+.btn-raised:active {
+    box-shadow: var(--shadow-pressed);
+    transform: translateY(3px);
+}
+
+/* Card */
+.card {
+    background: var(--color-surface);
+    border-radius: 12px;
+    border: 1px solid var(--color-divider);
+    box-shadow: var(--shadow-card);
+    padding: 24px;
+}
+
+/* Pill chips */
+.pill-chip {
+    border-radius: 9999px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid var(--color-divider);
+    background: var(--color-surface-variant);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.pill-chip.active,
+.pill-chip:hover {
+    background: var(--color-primary-surface);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+/* Metric display (JetBrains Mono) */
+.metric {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--color-text);
+}
+
+/* Image gradient overlay */
+.image-overlay {
+    position: relative;
+}
+
+.image-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 40%, rgba(17, 24, 39, 0.8) 100%);
+    border-radius: inherit;
+}
+
+/* Display heading */
+.heading-display {
+    font-family: var(--font-display);
+    color: var(--color-text);
 }

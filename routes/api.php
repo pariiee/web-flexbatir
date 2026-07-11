@@ -13,6 +13,7 @@ use App\Http\Controllers\GoalController;
 use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\FollowController;
+use App\Http\Controllers\LeaderboardController;
 use Illuminate\Support\Facades\Route;
 
 // Public routes
@@ -43,6 +44,9 @@ Route::get('/segments', [SegmentController::class, 'index']);
 Route::get('/segments/{segment}', [SegmentController::class, 'show'])->where('segment', '[0-9]+');
 Route::get('/segments/{segment}/leaderboard', [SegmentController::class, 'leaderboard'])->where('segment', '[0-9]+');
 
+// Public leaderboard
+Route::get('/leaderboard', [LeaderboardController::class, 'index']);
+
 // Public challenges
 Route::get('/challenges', [ChallengeController::class, 'index']);
 Route::get('/challenges/{challenge}', [ChallengeController::class, 'show'])->where('challenge', '[0-9]+');
@@ -60,6 +64,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/', [ProfileController::class, 'update']);
         Route::post('/avatar', [ProfileController::class, 'uploadAvatar']);
         Route::delete('/avatar', [ProfileController::class, 'deleteAvatar']);
+        Route::put('/password', [ProfileController::class, 'changePassword']);
     });
 
     // Activities
@@ -132,6 +137,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/users/{user}/followers', [FollowController::class, 'followers']);
     Route::get('/users/{user}/following', [FollowController::class, 'following']);
     Route::get('/users/{user}/is-following', [FollowController::class, 'isFollowing']);
+    Route::get('/users/suggestions', [FollowController::class, 'suggestions']);
     Route::get('/users/{user}/activities', [FollowController::class, 'userActivities']);
 
     // Notifications

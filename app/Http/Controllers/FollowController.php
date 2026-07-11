@@ -75,8 +75,36 @@ class FollowController extends Controller
     }
 
     /**
-     * Cek apakah user yang login sudah follow user tertentu.
+     * Saran user untuk di-follow.
+     * Ambil user yang belum di-follow dan bukan diri sendiri.
      */
+    public function suggestions(Request $request): JsonResponse
+    {
+        $authUser = $request->user();
+
+        $followingIds = $authUser->following()->pluck('users.id')->toArray();
+        $excludeIds   = array_merge($followingIds, [$authUser->id]);
+
+        $suggestions = User::whereNotIn('id', $excludeIds)
+            ->select('id', 'name', 'username', 'avatar')
+            ->inRandomOrder()
+            ->limit(10)
+            ->get()
+            ->map(function ($user) use ($authUser) {
+                return [
+                    'id'              => $user->id,
+                    'name'            => $user->name,
+                    'username'        => $user->username,
+                    'avatar'          => $user->avatar,
+                    'is_following'    => false,
+                    'followers_count' => $user->followers()->count(),
+                ];
+            });
+
+        return response()->json(['data' => $suggestions]);
+    }
+
+    /**
     public function isFollowing(Request $request, User $user): JsonResponse
     {
         $isFollowing = Follow::where([
