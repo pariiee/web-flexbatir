@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="FlexBatir â€” aplikasi fitness tracker untuk mencatat, menganalisis, dan berbagi aktivitasmu bersama komunitas.">
-    <title>FlexBatir â€” Track. Analyze. Share.</title>
+    <meta name="description" content="FlexBatir — aplikasi fitness tracker untuk mencatat, menganalisis, dan berbagi aktivitasmu bersama komunitas.">
+    <title>FlexBatir — Track. Analyze. Share.</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Germania+One&family=Roboto:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -30,7 +30,7 @@
             line-height: 1.6;
         }
 
-        /* â”€â”€ NAV â”€â”€ */
+        /* -- NAV -- */
         nav {
             position: sticky; top: 0; z-index: 100;
             background: rgba(249,250,251,.92);
@@ -56,7 +56,7 @@
         .btn {
             display: inline-flex; align-items: center; gap: .5rem;
             padding: .65rem 1.4rem; border-radius: 12px;
-            font-weight: 600; font-size: .9rem; text-decoration: none; cursor: pointer;
+            font-weight: 600; font-size: .9rem; cursor: pointer;
             border: none; transition: transform .15s, box-shadow .15s;
         }
         .btn:active { transform: translateY(1px); }
@@ -72,7 +72,7 @@
             box-shadow: var(--shadow-card);
         }
 
-        /* â”€â”€ HERO â”€â”€ */
+        /* -- HERO -- */
         .hero {
             min-height: calc(100vh - 64px);
             display: flex; align-items: center; justify-content: center;
@@ -117,7 +117,7 @@
         }
         .stat-label { font-size: .8rem; color: var(--text-sec); margin-top: .25rem; }
 
-        /* â”€â”€ SECTION â”€â”€ */
+        /* -- SECTION -- */
         section { padding: 6rem 5%; }
         .section-label {
             font-size: .8rem; font-weight: 700; letter-spacing: .1em;
@@ -130,7 +130,7 @@
         }
         .section-sub { color: var(--text-sec); max-width: 560px; font-size: 1.05rem; }
 
-        /* â”€â”€ FEATURES â”€â”€ */
+        /* -- FEATURES -- */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -157,7 +157,7 @@
         .feature-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: .5rem; }
         .feature-card p { font-size: .9rem; color: var(--text-sec); line-height: 1.6; }
 
-        /* â”€â”€ HOW IT WORKS â”€â”€ */
+        /* -- HOW IT WORKS -- */
         .steps { display: flex; flex-direction: column; gap: 0; margin-top: 3rem; max-width: 680px; }
         .step {
             display: flex; gap: 1.5rem; align-items: flex-start;
@@ -179,7 +179,7 @@
         .step-content h3 { font-weight: 700; margin-bottom: .4rem; }
         .step-content p { font-size: .9rem; color: var(--text-sec); }
 
-        /* â”€â”€ API SECTION â”€â”€ */
+        /* -- API SECTION -- */
         .api-section {
             background: linear-gradient(135deg, #1a1a1a 0%, #2d1a00 100%);
             border-radius: 24px; padding: 3rem; color: #fff;
@@ -201,7 +201,7 @@
         .code-num   { color: #7dd3fc; }
         .code-bool  { color: #86efac; }
 
-        /* â”€â”€ CTA â”€â”€ */
+        /* -- CTA -- */
         .cta-section {
             text-align: center;
             background: linear-gradient(135deg, rgba(250,60,0,.06), rgba(240,131,33,.06));
@@ -213,7 +213,7 @@
         }
         .cta-section p { color: var(--text-sec); max-width: 480px; margin: 0 auto 2.5rem; }
 
-        /* â”€â”€ FOOTER â”€â”€ */
+        /* -- FOOTER -- */
         footer {
             background: #1a1a1a; color: rgba(255,255,255,.5);
             padding: 2.5rem 5%; text-align: center;
@@ -249,7 +249,7 @@
 {{-- HERO --}}
 <section class="hero">
     <div class="hero-inner">
-        <span class="hero-badge">ðŸƒ Fitness Tracker App</span>
+        <span class="hero-badge">&#x1F3C3; Fitness Tracker App</span>
         <h1>Track. Analyze.<br>Share.</h1>
         <p>FlexBatir membantu kamu mencatat setiap aktivitas, menganalisis performa, dan berbagi pencapaian bersama komunitas pelari dan pesepeda.</p>
         <div class="hero-cta">
@@ -282,45 +282,45 @@
     <div style="max-width:1100px; margin: 0 auto;">
         <div class="section-label">Fitur Unggulan</div>
         <h2 class="section-title">Semua yang kamu butuhkan<br>untuk fitness tracking</h2>
-        <p class="section-sub">Dari pencatatan aktivitas manual hingga analisis statistik mingguan â€” semua tersedia di FlexBatir.</p>
+        <p class="section-sub">Dari pencatatan aktivitas manual hingga analisis statistik mingguan &mdash; semua tersedia di FlexBatir.</p>
         <div class="features-grid">
             <div class="feature-card">
-                <div class="feature-icon">ðŸƒ</div>
+                <div class="feature-icon">&#x1F3C3;</div>
                 <h3>Lacak Aktivitas</h3>
                 <p>Catat lari, bersepeda, hiking, renang, dan banyak lagi. Simpan jarak, durasi, kalori, dan elevasi secara akurat.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">ðŸ“Š</div>
-                <h3>Statistik & Grafik</h3>
+                <div class="feature-icon">&#x1F4CA;</div>
+                <h3>Statistik &amp; Grafik</h3>
                 <p>Visualisasi progres mingguan dan bulanan. Lihat tren jarak, durasi, dan kalori dalam chart yang informatif.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">ðŸ—ºï¸</div>
+                <div class="feature-icon">&#x1F5FA;&#xFE0F;</div>
                 <h3>Jalur Tersimpan</h3>
                 <p>Simpan rute favoritmu. Bagikan ke komunitas atau jadikan template untuk sesi latihan berikutnya.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">ðŸ†</div>
-                <h3>Segmen & Leaderboard</h3>
+                <div class="feature-icon">&#x1F3C6;</div>
+                <h3>Segmen &amp; Leaderboard</h3>
                 <p>Bersaing di segmen populer. Lihat posisimu di leaderboard global maupun mingguan.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">ðŸŽ¯</div>
-                <h3>Target & Goals</h3>
+                <div class="feature-icon">&#x1F3AF;</div>
+                <h3>Target &amp; Goals</h3>
                 <p>Buat target jarak, durasi, atau kalori. Pantau progress secara real-time dan raih setiap pencapaian.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">ðŸ‘¥</div>
-                <h3>Sosial & Komunitas</h3>
+                <div class="feature-icon">&#x1F465;</div>
+                <h3>Sosial &amp; Komunitas</h3>
                 <p>Ikuti teman, beri like, komentar aktivitas, gabung klub, dan ikut challenge bersama.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">ðŸ“…</div>
+                <div class="feature-icon">&#x1F4C5;</div>
                 <h3>Kalender Latihan</h3>
                 <p>Rencanakan sesi latihan ke depan. Tandai sesi yang selesai, dilewati, atau perlu dijadwal ulang.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">ðŸ””</div>
+                <div class="feature-icon">&#x1F514;</div>
                 <h3>Notifikasi</h3>
                 <p>Dapatkan notifikasi saat ada yang mengikutimu, menyukai aktivitasmu, atau mengajakmu bergabung ke klub.</p>
             </div>
