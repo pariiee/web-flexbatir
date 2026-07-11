@@ -6,6 +6,7 @@
     <meta name="description" content="FlexBatir — aplikasi fitness tracker untuk mencatat, menganalisis, dan berbagi aktivitasmu bersama komunitas.">
     <title>FlexBatir — Track. Analyze. Share.</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Germania+One&family=Roboto:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
