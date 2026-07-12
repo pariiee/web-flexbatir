@@ -129,6 +129,8 @@ class ActivityController extends Controller
             'average_heart_rate'  => 'sometimes|nullable|integer|min:0|max:300',
             'max_heart_rate'      => 'sometimes|nullable|integer|min:0|max:300',
             'is_public'           => 'sometimes|boolean',
+            'gps_data'            => 'sometimes|nullable|array',
+            'encoded_polyline'    => 'sometimes|nullable|string',
         ]);
 
         $activity->update($validated);
