@@ -16,6 +16,7 @@ use App\Http\Controllers\FollowController;
 use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\GearController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\InsightController;
 use Illuminate\Support\Facades\Route;
 
 // Public routes
@@ -97,6 +98,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/{userRoute}', [RouteController::class, 'show']);
         Route::put('/{userRoute}', [RouteController::class, 'update']);
         Route::delete('/{userRoute}', [RouteController::class, 'destroy']);
+        Route::post('/{userRoute}/bookmark', [RouteController::class, 'toggleBookmark']);
     });
 
     // Posts
@@ -186,5 +188,12 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/conversations', [MessageController::class, 'findOrCreate']);
         Route::get('/conversations/{conversation}', [MessageController::class, 'messages']);
         Route::post('/conversations/{conversation}', [MessageController::class, 'send']);
+    });
+
+    // Insights
+    Route::prefix('insights')->group(function () {
+        Route::get('/', [InsightController::class, 'index']);
+        Route::get('/summary', [InsightController::class, 'summary']);
+        Route::delete('/{insight}', [InsightController::class, 'destroy']);
     });
 });

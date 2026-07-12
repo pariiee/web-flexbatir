@@ -12,19 +12,19 @@ class RouteController extends Controller
     /**
      * Map a UserRoute to the array shape expected by the Flutter client.
      */
-    private function formatRoute(UserRoute $route): array
+    private function formatRoute(UserRoute $route, ?int $userId = null): array
     {
         return [
             'id'                          => $route->id,
             'name'                        => $route->name,
             'description'                 => $route->description,
-            'sport_type'                  => $route->type,          // Flutter uses sport_type
-            'distance_km'                 => $route->distance_km,   // computed: distance / 1000
+            'sport_type'                  => $route->type,
+            'distance_km'                 => $route->distance_km,
             'elevation_gain'              => $route->elevation_gain ? (int) $route->elevation_gain : null,
-            'estimated_duration_minutes'  => $route->estimated_duration, // Flutter uses _minutes suffix
+            'estimated_duration_minutes'  => $route->estimated_duration,
             'difficulty'                  => $route->difficulty ?? null,
             'is_public'                   => (bool) $route->is_public,
-            'usage_count'                 => $route->times_used ?? 0, // Flutter uses usage_count
+            'usage_count'                 => $route->times_used ?? 0,
             'start_lat'                   => $route->start_lat,
             'start_lng'                   => $route->start_lng,
             'end_lat'                     => $route->end_lat,
@@ -33,6 +33,9 @@ class RouteController extends Controller
                 ? asset('storage/' . $route->map_image)
                 : null,
             'created_at'                  => $route->created_at?->toIso8601String(),
+            'is_bookmarked'               => $userId
+                ? $route->bookmarks()->where('user_id', $userId)->exists()
+                : false,
         ];
     }
 
@@ -78,13 +81,16 @@ class RouteController extends Controller
             'estimated_calories'   => 'nullable|integer|min:0',
             'is_public'            => 'nullable|boolean',
             'difficulty'           => 'nullable|in:easy,moderate,hard',
+        ]);
+
+        $route = UserRoute::create([
             ...$validated,
             'user_id' => $request->user()->id,
         ]);
 
         return response()->json([
             'message' => 'Rute berhasil dibuat.',
-            'route'   => $route,
+            'route'   => $this->formatRoute($route),
         ], 201);
     }
 
@@ -176,5 +182,33 @@ class RouteController extends Controller
             ->paginate(15);
 
         return response()->json($routes);
+    }
+
+    /**
+     * Toggle bookmark/star untuk sebuah rute.
+     * POST /routes/{userRoute}/bookmark
+     */
+    public function toggleBookmark(Request $request, UserRoute $userRoute): JsonResponse
+    {
+        $userId = $request->user()->id;
+
+        // Pastikan rute milik user sendiri atau rute publik
+        if ($userRoute->user_id !== $userId && !$userRoute->is_public) {
+            return response()->json(['message' => 'Tidak diizinkan.'], 403);
+        }
+
+        $existing = $userRoute->bookmarks()->where('user_id', $userId)->first();
+
+        if ($existing) {
+            $existing->delete();
+            $isBookmarked = false;
+        } else {
+            $userRoute->bookmarks()->create(['user_id' => $userId]);
+            $isBookmarked = true;
+        }
+
+        return response()->json([
+            'is_bookmarked' => $isBookmarked,
+        ]);
     }
 }
