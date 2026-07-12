@@ -14,6 +14,8 @@ use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\LeaderboardController;
+use App\Http\Controllers\GearController;
+use App\Http\Controllers\MessageController;
 use Illuminate\Support\Facades\Route;
 
 // Public routes
@@ -167,5 +169,22 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/{challenge}/join', [ChallengeController::class, 'join']);
         Route::delete('/{challenge}/leave', [ChallengeController::class, 'leave']);
         Route::put('/{challenge}/progress', [ChallengeController::class, 'updateProgress']);
+    });
+
+    // Gear
+    Route::prefix('gear')->group(function () {
+        Route::get('/', [GearController::class, 'index']);
+        Route::post('/', [GearController::class, 'store']);
+        Route::get('/{gear}', [GearController::class, 'show']);
+        Route::put('/{gear}', [GearController::class, 'update']);
+        Route::delete('/{gear}', [GearController::class, 'destroy']);
+    });
+
+    // Messages
+    Route::prefix('messages')->group(function () {
+        Route::get('/conversations', [MessageController::class, 'conversations']);
+        Route::post('/conversations', [MessageController::class, 'findOrCreate']);
+        Route::get('/conversations/{conversation}', [MessageController::class, 'messages']);
+        Route::post('/conversations/{conversation}', [MessageController::class, 'send']);
     });
 });
