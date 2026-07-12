@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Germania+One&family=Roboto:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -249,7 +250,7 @@
 {{-- HERO --}}
 <section class="hero">
     <div class="hero-inner">
-        <span class="hero-badge">&#x1F3C3; Fitness Tracker App</span>
+        <span class="hero-badge"><i data-lucide="activity" style="width:16px;height:16px;display:inline;vertical-align:middle;margin-right:4px"></i> Fitness Tracker App</span>
         <h1>Track. Analyze.<br>Share.</h1>
         <p>FlexBatir membantu kamu mencatat setiap aktivitas, menganalisis performa, dan berbagi pencapaian bersama komunitas pelari dan pesepeda.</p>
         <div class="hero-cta">
@@ -285,42 +286,42 @@
         <p class="section-sub">Dari pencatatan aktivitas manual hingga analisis statistik mingguan &mdash; semua tersedia di FlexBatir.</p>
         <div class="features-grid">
             <div class="feature-card">
-                <div class="feature-icon">&#x1F3C3;</div>
+                <div class="feature-icon"><i data-lucide="activity"></i></div>
                 <h3>Lacak Aktivitas</h3>
                 <p>Catat lari, bersepeda, hiking, renang, dan banyak lagi. Simpan jarak, durasi, kalori, dan elevasi secara akurat.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">&#x1F4CA;</div>
+                <div class="feature-icon"><i data-lucide="bar-chart-3"></i></div>
                 <h3>Statistik &amp; Grafik</h3>
                 <p>Visualisasi progres mingguan dan bulanan. Lihat tren jarak, durasi, dan kalori dalam chart yang informatif.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">&#x1F5FA;&#xFE0F;</div>
+                <div class="feature-icon"><i data-lucide="map"></i></div>
                 <h3>Jalur Tersimpan</h3>
                 <p>Simpan rute favoritmu. Bagikan ke komunitas atau jadikan template untuk sesi latihan berikutnya.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">&#x1F3C6;</div>
+                <div class="feature-icon"><i data-lucide="trophy"></i></div>
                 <h3>Segmen &amp; Leaderboard</h3>
                 <p>Bersaing di segmen populer. Lihat posisimu di leaderboard global maupun mingguan.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">&#x1F3AF;</div>
+                <div class="feature-icon"><i data-lucide="target"></i></div>
                 <h3>Target &amp; Goals</h3>
                 <p>Buat target jarak, durasi, atau kalori. Pantau progress secara real-time dan raih setiap pencapaian.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">&#x1F465;</div>
+                <div class="feature-icon"><i data-lucide="users"></i></div>
                 <h3>Sosial &amp; Komunitas</h3>
                 <p>Ikuti teman, beri like, komentar aktivitas, gabung klub, dan ikut challenge bersama.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">&#x1F4C5;</div>
+                <div class="feature-icon"><i data-lucide="calendar"></i></div>
                 <h3>Kalender Latihan</h3>
                 <p>Rencanakan sesi latihan ke depan. Tandai sesi yang selesai, dilewati, atau perlu dijadwal ulang.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">&#x1F514;</div>
+                <div class="feature-icon"><i data-lucide="bell"></i></div>
                 <h3>Notifikasi</h3>
                 <p>Dapatkan notifikasi saat ada yang mengikutimu, menyukai aktivitasmu, atau mengajakmu bergabung ke klub.</p>
             </div>
@@ -417,5 +418,8 @@
     <p style="margin-top: .5rem;">API: <a href="https://flexbatir.web.id/api">flexbatir.web.id/api</a></p>
 </footer>
 
+<script>
+    lucide.createIcons();
+</script>
 </body>
 </html>
