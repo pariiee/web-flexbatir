@@ -224,19 +224,67 @@
 
         /* -- FOOTER -- */
         footer {
-            background: var(--bg);
+            background: #111111;
             border-top: 1px solid var(--divider);
             color: var(--text-sec);
-            padding: 2.5rem 5%; text-align: center;
+            padding: 4rem 5% 2rem;
             font-size: .85rem;
         }
-        footer a { color: var(--primary); text-decoration: none; }
-        .footer-logo {
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.8fr 1fr 1fr 1fr 1.4fr;
+            gap: 2.5rem;
+            max-width: 1100px;
+            margin: 0 auto 3rem;
+        }
+        @media (max-width: 900px) {
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 500px) {
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+        .footer-brand .footer-logo {
             font-family: 'Montserrat', sans-serif;
             font-weight: 800; font-size: 1.4rem;
             color: var(--primary);
-            display: block; margin-bottom: .75rem;
+            display: block; margin-bottom: .4rem;
         }
+        .footer-brand .footer-tagline {
+            font-size: .8rem; color: var(--text-sec);
+            margin-bottom: 1rem; font-weight: 500;
+        }
+        .footer-brand p {
+            font-size: .82rem; color: var(--text-sec);
+            line-height: 1.7; max-width: 240px;
+        }
+        .footer-col h4 {
+            font-size: .8rem; font-weight: 700;
+            color: var(--text); letter-spacing: .06em;
+            text-transform: uppercase; margin-bottom: 1rem;
+        }
+        .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
+        .footer-col ul a {
+            color: var(--text-sec); text-decoration: none;
+            font-size: .82rem; transition: color .2s;
+        }
+        .footer-col ul a:hover { color: var(--primary); }
+        .footer-contact-item {
+            display: flex; align-items: center; gap: .6rem;
+            color: var(--text-sec); font-size: .82rem;
+            margin-bottom: .6rem;
+        }
+        .footer-contact-item svg { color: var(--primary); flex-shrink: 0; }
+        .footer-contact-item a { color: var(--text-sec); text-decoration: none; }
+        .footer-contact-item a:hover { color: var(--primary); }
+        .footer-bottom {
+            border-top: 1px solid var(--divider);
+            padding-top: 1.5rem;
+            max-width: 1100px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 1rem;
+            font-size: .78rem; color: var(--text-sec);
+        }
+        .footer-bottom a { color: var(--primary); text-decoration: none; }
 
         @media (max-width: 600px) {
             .nav-links { display: none; }
@@ -423,9 +471,69 @@
 
 {{-- FOOTER --}}
 <footer>
-    <span class="footer-logo">FlexBatir</span>
-    <p>Built with Laravel &amp; Flutter &mdash; <a href="https://github.com/pariiee/web-flexbatir" target="_blank">GitHub</a></p>
-    <p style="margin-top: .5rem;">API: <a href="https://flexbatir.web.id/api">flexbatir.web.id/api</a></p>
+    <div class="footer-grid">
+        {{-- Brand --}}
+        <div class="footer-brand">
+            <span class="footer-logo">FlexBatir</span>
+            <div class="footer-tagline">Track. Analyze. Share.</div>
+            <p>Aplikasi fitness tracker untuk mencatat, menganalisis, dan berbagi aktivitasmu bersama komunitas.</p>
+        </div>
+
+        {{-- Company --}}
+        <div class="footer-col">
+            <h4>Company</h4>
+            <ul>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Careers</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+            </ul>
+        </div>
+
+        {{-- Resources --}}
+        <div class="footer-col">
+            <h4>Resources</h4>
+            <ul>
+                <li><a href="https://flexbatir.web.id/api" target="_blank">API Docs</a></li>
+                <li><a href="https://github.com/pariiee/web-flexbatir" target="_blank">GitHub</a></li>
+                <li><a href="#">Changelog</a></li>
+                <li><a href="#">Status</a></li>
+            </ul>
+        </div>
+
+        {{-- Programs --}}
+        <div class="footer-col">
+            <h4>Programs</h4>
+            <ul>
+                <li><a href="#">Challenges</a></li>
+                <li><a href="#">Leaderboard</a></li>
+                <li><a href="#">Clubs</a></li>
+                <li><a href="#">Goals</a></li>
+            </ul>
+        </div>
+
+        {{-- Contact --}}
+        <div class="footer-col">
+            <h4>Contact Us</h4>
+            <div class="footer-contact-item">
+                <i data-lucide="mail" style="width:15px;height:15px"></i>
+                <a href="mailto:hello@flexbatir.web.id">hello@flexbatir.web.id</a>
+            </div>
+            <div class="footer-contact-item">
+                <i data-lucide="globe" style="width:15px;height:15px"></i>
+                <a href="https://flexbatir.web.id" target="_blank">flexbatir.web.id</a>
+            </div>
+            <div class="footer-contact-item">
+                <i data-lucide="github" style="width:15px;height:15px"></i>
+                <a href="https://github.com/pariiee" target="_blank">@pariiee</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <span>&copy; {{ date('Y') }} FlexBatir. Built with Laravel &amp; Flutter.</span>
+        <span>Made with <span style="color:var(--primary)">♥</span> by <a href="https://github.com/pariiee" target="_blank">pariiee</a></span>
+    </div>
 </footer>
 
 <script>
