@@ -308,11 +308,11 @@
 {{-- HERO --}}
 <section class="hero">
     <div class="hero-inner">
-        <span class="hero-badge"><i data-lucide="activity" style="width:16px;height:16px;display:inline;vertical-align:middle;margin-right:4px"></i> Fitness Tracker App</span>
-        <h1>Track. Analyze.<br>Share.</h1>
-        <p>FlexBatir membantu kamu mencatat setiap aktivitas, menganalisis performa, dan berbagi pencapaian bersama komunitas pelari dan pesepeda.</p>
+        <span class="hero-badge"><i data-lucide="zap" style="width:16px;height:16px;display:inline;vertical-align:middle;margin-right:4px"></i> Buat yang males jadi iri</span>
+        <h1>Flex. Grind.<br><span>Pamer.</span></h1>
+        <p>Bukan cuma tracker biasa. FlexBatir adalah tempat kamu buktiin ke dunia bahwa kamu lebih rajin dari mereka.</p>
         <div class="hero-cta">
-            <a href="#fitur" class="btn btn-primary">Lihat Fitur</a>
+            <a href="#fitur" class="btn btn-primary">Mulai Flex Sekarang</a>
             <a href="https://flexbatir.web.id/api" class="btn btn-outline" target="_blank">Explore API</a>
         </div>
         <div class="hero-stats">
@@ -340,48 +340,48 @@
 <section id="fitur">
     <div style="max-width:1100px; margin: 0 auto;">
         <div class="section-label">Fitur Unggulan</div>
-        <h2 class="section-title">Semua yang kamu butuhkan<br>untuk fitness tracking</h2>
-        <p class="section-sub">Dari pencatatan aktivitas manual hingga analisis statistik mingguan &mdash; semua tersedia di FlexBatir.</p>
+        <h2 class="section-title">Semua senjata<br>buat bikin orang iri</h2>
+        <p class="section-sub">Dari GPS tracking sampai leaderboard — semua ada buat kamu buktiin siapa yang paling rajin.</p>
         <div class="features-grid">
             <div class="feature-card">
                 <div class="feature-icon"><i data-lucide="activity"></i></div>
                 <h3>Lacak Aktivitas</h3>
-                <p>Catat lari, bersepeda, hiking, renang, dan banyak lagi. Simpan jarak, durasi, kalori, dan elevasi secara akurat.</p>
+                <p>Catat lari, sepeda, hiking, renang — semua masuk. Jarak, durasi, kalori, elevasi. Ga ada yang terlewat.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon"><i data-lucide="bar-chart-3"></i></div>
-                <h3>Statistik &amp; Grafik</h3>
-                <p>Visualisasi progres mingguan dan bulanan. Lihat tren jarak, durasi, dan kalori dalam chart yang informatif.</p>
+                <h3>Statistik & Grafik</h3>
+                <p>Lihat progresmu dalam grafik yang bikin kamu makin semangat. Atau makin malu kalau males.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon"><i data-lucide="map"></i></div>
-                <h3>Jalur Tersimpan</h3>
-                <p>Simpan rute favoritmu. Bagikan ke komunitas atau jadikan template untuk sesi latihan berikutnya.</p>
+                <h3>Rute Favorit</h3>
+                <p>Simpan rute andalanmu. Pamer ke komunitas atau tantang teman buat ngalahin waktumu.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon"><i data-lucide="trophy"></i></div>
-                <h3>Segmen &amp; Leaderboard</h3>
-                <p>Bersaing di segmen populer. Lihat posisimu di leaderboard global maupun mingguan.</p>
+                <h3>Segmen & Leaderboard</h3>
+                <p>Ada yang lebih cepat dari kamu? Ga mungkin. Buktiin di leaderboard global dan mingguan.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon"><i data-lucide="target"></i></div>
-                <h3>Target &amp; Goals</h3>
-                <p>Buat target jarak, durasi, atau kalori. Pantau progress secara real-time dan raih setiap pencapaian.</p>
+                <h3>Target & Goals</h3>
+                <p>Set target, kejar, capai. Terus bikin yang baru. Batas itu cuma ada di pikiran orang yang males.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon"><i data-lucide="users"></i></div>
-                <h3>Sosial &amp; Komunitas</h3>
-                <p>Ikuti teman, beri like, komentar aktivitas, gabung klub, dan ikut challenge bersama.</p>
+                <h3>Sosial & Komunitas</h3>
+                <p>Follow teman, like aktivitas, join klub, ikut challenge. Olahraga lebih seru kalau ada yang ngelihat.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon"><i data-lucide="calendar"></i></div>
                 <h3>Kalender Latihan</h3>
-                <p>Rencanakan sesi latihan ke depan. Tandai sesi yang selesai, dilewati, atau perlu dijadwal ulang.</p>
+                <p>Plan sesimu jauh-jauh hari. Konsistensi adalah flex yang paling kuat.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon"><i data-lucide="bell"></i></div>
                 <h3>Notifikasi</h3>
-                <p>Dapatkan notifikasi saat ada yang mengikutimu, menyukai aktivitasmu, atau mengajakmu bergabung ke klub.</p>
+                <p>Tau langsung kalau ada yang follow kamu, like aktivitasmu, atau ngajak gabung klub.</p>
             </div>
         </div>
     </div>
@@ -392,36 +392,36 @@
     <div style="max-width:1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;">
         <div>
             <div class="section-label">Cara Kerja</div>
-            <h2 class="section-title">Mulai dalam<br>beberapa langkah</h2>
-            <p class="section-sub">FlexBatir dirancang untuk kemudahan. Download app, buat akun, dan langsung mulai tracking.</p>
+            <h2 class="section-title">4 langkah<br>jadi yang terdepan</h2>
+            <p class="section-sub">Setup cepat, langsung gas. Ga perlu tutorial panjang-panjang.</p>
         </div>
         <div class="steps">
             <div class="step">
                 <div class="step-num">1</div>
                 <div class="step-content">
                     <h3>Buat Akun</h3>
-                    <p>Daftar dengan email dan mulai perjalanan fitness kamu. Gratis selamanya.</p>
+                    <p>Daftar gratis. Selamanya. Ga ada yang disembunyiin di balik paywall.</p>
                 </div>
             </div>
             <div class="step">
                 <div class="step-num">2</div>
                 <div class="step-content">
                     <h3>Catat Aktivitas</h3>
-                    <p>Rekam aktivitas manual atau upload file GPX dari perangkat GPS kamu.</p>
+                    <p>Rekam manual atau upload GPX. Semua masuk, semua tercatat, ga ada yang terlewat.</p>
                 </div>
             </div>
             <div class="step">
                 <div class="step-num">3</div>
                 <div class="step-content">
-                    <h3>Analisis Performa</h3>
-                    <p>Lihat statistik, grafik tren, dan bandingkan performa antar minggu.</p>
+                    <h3>Lihat Progresmu</h3>
+                    <p>Statistik lengkap, grafik tren, performa minggu ke minggu. Bukti nyata kerja kerasmu.</p>
                 </div>
             </div>
             <div class="step">
                 <div class="step-num">4</div>
                 <div class="step-content">
-                    <h3>Bagikan ke Komunitas</h3>
-                    <p>Post aktivitas ke feed, ikut challenge, dan bersaing di leaderboard.</p>
+                    <h3>Pamer ke Semua Orang</h3>
+                    <p>Post ke feed, ikut challenge, dominasi leaderboard. Biar pada tau siapa yang paling rajin.</p>
                 </div>
             </div>
         </div>
@@ -434,8 +434,8 @@
         <div class="api-section">
             <div>
                 <div style="color: var(--primary); font-size: .8rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .75rem;">REST API</div>
-                <h2>Bangun di atas<br>FlexBatir API</h2>
-                <p>Semua fitur tersedia via REST API dengan autentikasi Sanctum. Cocok untuk integrasi dengan perangkat wearable, web app, atau proyek riset.</p>
+                <h2>API buat yang<br>mau build di atas FlexBatir</h2>
+                <p>Semua fitur tersedia via REST API. Wearable, web app, proyek riset — tinggal connect dan gas.</p>
                 <a href="https://flexbatir.web.id/api" class="btn btn-primary" target="_blank">Lihat Endpoint</a>
             </div>
             <div class="code-block">
@@ -461,10 +461,10 @@
 {{-- CTA --}}
 <section class="cta-section">
     <div style="max-width: 680px; margin: 0 auto;">
-        <h2>Siap mulai tracking?</h2>
-        <p>Bergabung dengan komunitas FlexBatir dan mulai catat setiap langkah perjalanan fitnessmu hari ini.</p>
+        <h2>Masih nunggu apa lagi? 💪</h2>
+        <p>Orang lain udah lari 10km pagi ini. Kamu masih scroll. Yuk mulai sekarang — gratis, ga ada excuse.</p>
         <div class="hero-cta">
-            <a href="https://flexbatir.web.id/api" class="btn btn-primary" target="_blank">Explore API</a>
+            <a href="https://flexbatir.web.id/api" class="btn btn-primary" target="_blank">Gas Sekarang</a>
         </div>
     </div>
 </section>
