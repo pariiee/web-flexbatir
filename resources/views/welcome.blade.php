@@ -7,25 +7,24 @@
     <title>FlexBatir — Track. Analyze. Share.</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Germania+One&family=Roboto:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --primary:   #FA3C00;
-            --secondary: #F08321;
-            --bg:        #F9FAFB;
-            --surface:   #FFFFFF;
-            --text:      #1A1A1A;
-            --text-sec:  #6B7280;
-            --divider:   #E5E7EB;
-            --shadow-raised: 4px 4px 8px rgba(0,0,0,.12), -2px -2px 6px rgba(255,255,255,.9);
-            --shadow-card:   0 2px 12px rgba(0,0,0,.08);
+            --primary:   #B5FF2D;
+            --bg:        #0A0A0A;
+            --surface:   #1A1A1A;
+            --text:      #FFFFFF;
+            --text-sec:  #888888;
+            --divider:   #2A2A2A;
+            --shadow-card: 0 2px 16px rgba(0,0,0,.4);
+            --shadow-glow: 0 0 24px rgba(181,255,45,.15);
         }
 
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             background: var(--bg);
             color: var(--text);
             line-height: 1.6;
@@ -34,7 +33,7 @@
         /* -- NAV -- */
         nav {
             position: sticky; top: 0; z-index: 100;
-            background: rgba(249,250,251,.92);
+            background: rgba(10,10,10,.92);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--divider);
             padding: 0 5%;
@@ -42,11 +41,12 @@
             height: 64px;
         }
         .nav-logo {
-            font-family: 'Germania One', serif;
-            font-size: 1.6rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary);
             text-decoration: none;
+            letter-spacing: -.02em;
         }
         .nav-links { display: flex; gap: 2rem; list-style: none; }
         .nav-links a {
@@ -57,21 +57,23 @@
         .btn {
             display: inline-flex; align-items: center; gap: .5rem;
             padding: .65rem 1.4rem; border-radius: 12px;
-            font-weight: 600; font-size: .9rem; cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700; font-size: .9rem; cursor: pointer;
             border: none; transition: transform .15s, box-shadow .15s;
+            text-decoration: none;
         }
         .btn:active { transform: translateY(1px); }
         .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: #fff;
-            box-shadow: var(--shadow-raised);
+            background: var(--primary);
+            color: #000;
+            box-shadow: var(--shadow-glow);
         }
-        .btn-primary:hover { box-shadow: 6px 6px 12px rgba(0,0,0,.18), -3px -3px 8px rgba(255,255,255,.95); }
+        .btn-primary:hover { box-shadow: 0 0 32px rgba(181,255,45,.3); }
         .btn-outline {
-            background: var(--surface); color: var(--primary);
+            background: transparent; color: var(--primary);
             border: 2px solid var(--primary);
-            box-shadow: var(--shadow-card);
         }
+        .btn-outline:hover { background: rgba(181,255,45,.08); }
 
         /* -- HERO -- */
         .hero {
@@ -79,25 +81,27 @@
             display: flex; align-items: center; justify-content: center;
             padding: 5% 5%;
             text-align: center;
-            background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(250,60,0,.08) 0%, transparent 70%);
+            background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(181,255,45,.06) 0%, transparent 70%);
         }
         .hero-inner { max-width: 760px; }
         .hero-badge {
             display: inline-block;
-            background: rgba(250,60,0,.1); color: var(--primary);
-            border: 1px solid rgba(250,60,0,.25);
+            background: rgba(181,255,45,.1); color: var(--primary);
+            border: 1px solid rgba(181,255,45,.25);
             border-radius: 999px; padding: .3rem 1rem;
             font-size: .8rem; font-weight: 600; letter-spacing: .06em;
             margin-bottom: 1.5rem;
         }
         .hero h1 {
-            font-family: 'Germania One', serif;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
             font-size: clamp(2.8rem, 7vw, 5rem);
             line-height: 1.1;
-            background: linear-gradient(135deg, var(--primary) 20%, var(--secondary) 80%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            color: var(--text);
             margin-bottom: 1.25rem;
+            letter-spacing: -.03em;
         }
+        .hero h1 span { color: var(--primary); }
         .hero p {
             font-size: clamp(1rem, 2.5vw, 1.2rem);
             color: var(--text-sec); max-width: 560px; margin: 0 auto 2.5rem;
@@ -113,8 +117,7 @@
         .stat-value {
             font-family: 'JetBrains Mono', monospace;
             font-size: 2rem; font-weight: 600;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            color: var(--primary);
         }
         .stat-label { font-size: .8rem; color: var(--text-sec); margin-top: .25rem; }
 
@@ -125,9 +128,11 @@
             color: var(--primary); text-transform: uppercase; margin-bottom: .75rem;
         }
         .section-title {
-            font-family: 'Germania One', serif;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
             font-size: clamp(1.8rem, 4vw, 2.8rem);
             margin-bottom: 1rem; line-height: 1.2;
+            letter-spacing: -.02em;
         }
         .section-sub { color: var(--text-sec); max-width: 560px; font-size: 1.05rem; }
 
@@ -143,19 +148,20 @@
             padding: 2rem;
             box-shadow: var(--shadow-card);
             border: 1px solid var(--divider);
-            transition: transform .2s, box-shadow .2s;
+            transition: transform .2s, border-color .2s;
         }
         .feature-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0,0,0,.12);
+            border-color: rgba(181,255,45,.25);
         }
         .feature-icon {
             width: 52px; height: 52px; border-radius: 14px;
-            background: linear-gradient(135deg, rgba(250,60,0,.12), rgba(240,131,33,.12));
+            background: rgba(181,255,45,.1);
+            color: var(--primary);
             display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; margin-bottom: 1.25rem;
+            margin-bottom: 1.25rem;
         }
-        .feature-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: .5rem; }
+        .feature-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: .5rem; color: var(--text); }
         .feature-card p { font-size: .9rem; color: var(--text-sec); line-height: 1.6; }
 
         /* -- HOW IT WORKS -- */
@@ -167,64 +173,68 @@
         .step:not(:last-child)::before {
             content: ''; position: absolute;
             left: 22px; top: 48px; bottom: 0; width: 2px;
-            background: linear-gradient(to bottom, var(--primary), var(--secondary));
-            opacity: .25;
+            background: var(--divider);
         }
         .step-num {
             min-width: 44px; height: 44px; border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: #fff; font-weight: 700; font-size: 1rem;
+            background: var(--primary);
+            color: #000; font-weight: 800; font-size: 1rem;
             display: flex; align-items: center; justify-content: center;
-            box-shadow: var(--shadow-raised); flex-shrink: 0;
+            flex-shrink: 0;
         }
-        .step-content h3 { font-weight: 700; margin-bottom: .4rem; }
+        .step-content h3 { font-weight: 700; margin-bottom: .4rem; color: var(--text); }
         .step-content p { font-size: .9rem; color: var(--text-sec); }
 
         /* -- API SECTION -- */
         .api-section {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d1a00 100%);
-            border-radius: 24px; padding: 3rem; color: #fff;
+            background: var(--surface);
+            border: 1px solid var(--divider);
+            border-radius: 24px; padding: 3rem; color: var(--text);
             display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
         }
         @media (max-width: 700px) { .api-section { grid-template-columns: 1fr; } }
-        .api-section h2 { font-family: 'Germania One', serif; font-size: 2rem; margin-bottom: 1rem; }
-        .api-section p { color: rgba(255,255,255,.7); margin-bottom: 1.5rem; }
+        .api-section h2 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 2rem; margin-bottom: 1rem; }
+        .api-section p { color: var(--text-sec); margin-bottom: 1.5rem; }
         .code-block {
-            background: rgba(255,255,255,.06);
-            border: 1px solid rgba(255,255,255,.1);
+            background: var(--bg);
+            border: 1px solid var(--divider);
             border-radius: 14px; padding: 1.5rem;
             font-family: 'JetBrains Mono', monospace;
-            font-size: .8rem; line-height: 1.8; color: rgba(255,255,255,.85);
+            font-size: .8rem; line-height: 1.8; color: var(--text-sec);
             overflow-x: auto;
         }
-        .code-key   { color: #FA3C00; }
-        .code-str   { color: #F08321; }
+        .code-key   { color: var(--primary); }
+        .code-str   { color: #88c0d0; }
         .code-num   { color: #7dd3fc; }
         .code-bool  { color: #86efac; }
 
         /* -- CTA -- */
         .cta-section {
             text-align: center;
-            background: linear-gradient(135deg, rgba(250,60,0,.06), rgba(240,131,33,.06));
+            background: var(--surface);
             border-top: 1px solid var(--divider);
         }
         .cta-section h2 {
-            font-family: 'Germania One', serif;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
             font-size: clamp(2rem, 5vw, 3.2rem); margin-bottom: 1rem;
+            letter-spacing: -.02em;
         }
         .cta-section p { color: var(--text-sec); max-width: 480px; margin: 0 auto 2.5rem; }
 
         /* -- FOOTER -- */
         footer {
-            background: #1a1a1a; color: rgba(255,255,255,.5);
+            background: var(--bg);
+            border-top: 1px solid var(--divider);
+            color: var(--text-sec);
             padding: 2.5rem 5%; text-align: center;
             font-size: .85rem;
         }
-        footer a { color: var(--secondary); text-decoration: none; }
+        footer a { color: var(--primary); text-decoration: none; }
         .footer-logo {
-            font-family: 'Germania One', serif; font-size: 1.4rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800; font-size: 1.4rem;
+            color: var(--primary);
             display: block; margin-bottom: .75rem;
         }
 
@@ -375,7 +385,7 @@
     <div style="max-width:1100px; margin: 0 auto;">
         <div class="api-section">
             <div>
-                <div style="color: var(--secondary); font-size: .8rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .75rem;">REST API</div>
+                <div style="color: var(--primary); font-size: .8rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .75rem;">REST API</div>
                 <h2>Bangun di atas<br>FlexBatir API</h2>
                 <p>Semua fitur tersedia via REST API dengan autentikasi Sanctum. Cocok untuk integrasi dengan perangkat wearable, web app, atau proyek riset.</p>
                 <a href="https://flexbatir.web.id/api" class="btn btn-primary" target="_blank">Lihat Endpoint</a>
