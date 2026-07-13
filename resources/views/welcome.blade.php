@@ -461,7 +461,7 @@
 {{-- CTA --}}
 <section class="cta-section">
     <div style="max-width: 680px; margin: 0 auto;">
-        <h2>Masih nunggu apa lagi? 💪</h2>
+        <h2>Masih nunggu apa lagi?</h2>
         <p>Orang lain udah lari 10km pagi ini. Kamu masih scroll. Yuk mulai sekarang — gratis, ga ada excuse.</p>
         <div class="hero-cta">
             <a href="https://flexbatir.web.id/api" class="btn btn-primary" target="_blank">Gas Sekarang</a>
