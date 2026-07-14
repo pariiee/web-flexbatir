@@ -13,14 +13,14 @@
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --primary:   #B5FF2D;
+            --primary:   #3B82F6;
             --bg:        #0A0A0A;
             --surface:   #1A1A1A;
             --text:      #FFFFFF;
             --text-sec:  #888888;
             --divider:   #2A2A2A;
             --shadow-card: 0 2px 16px rgba(0,0,0,.4);
-            --shadow-glow: 0 0 24px rgba(181,255,45,.15);
+            --shadow-glow: 0 0 24px rgba(59,130,246,.2);
         }
 
         body {
@@ -65,15 +65,15 @@
         .btn:active { transform: translateY(1px); }
         .btn-primary {
             background: var(--primary);
-            color: #000;
+            color: #fff;
             box-shadow: var(--shadow-glow);
         }
-        .btn-primary:hover { box-shadow: 0 0 32px rgba(181,255,45,.3); }
+        .btn-primary:hover { box-shadow: 0 0 32px rgba(59,130,246,.4); }
         .btn-outline {
             background: transparent; color: var(--primary);
             border: 2px solid var(--primary);
         }
-        .btn-outline:hover { background: rgba(181,255,45,.08); }
+        .btn-outline:hover { background: rgba(59,130,246,.08); }
 
         /* -- HERO -- */
         .hero {
@@ -81,13 +81,13 @@
             display: flex; align-items: center; justify-content: center;
             padding: 5% 5%;
             text-align: center;
-            background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(181,255,45,.06) 0%, transparent 70%);
+            background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(59,130,246,.06) 0%, transparent 70%);
         }
         .hero-inner { max-width: 760px; }
         .hero-badge {
             display: inline-block;
-            background: rgba(181,255,45,.1); color: var(--primary);
-            border: 1px solid rgba(181,255,45,.25);
+            background: rgba(59,130,246,.1); color: var(--primary);
+            border: 1px solid rgba(59,130,246,.25);
             border-radius: 999px; padding: .3rem 1rem;
             font-size: .8rem; font-weight: 600; letter-spacing: .06em;
             margin-bottom: 1.5rem;
@@ -152,11 +152,11 @@
         }
         .feature-card:hover {
             transform: translateY(-4px);
-            border-color: rgba(181,255,45,.25);
+            border-color: rgba(59,130,246,.25);
         }
         .feature-icon {
             width: 52px; height: 52px; border-radius: 14px;
-            background: rgba(181,255,45,.1);
+            background: rgba(59,130,246,.1);
             color: var(--primary);
             display: flex; align-items: center; justify-content: center;
             margin-bottom: 1.25rem;
