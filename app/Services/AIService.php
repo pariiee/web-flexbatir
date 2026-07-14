@@ -98,7 +98,7 @@ class AIService
         $payload = array_merge([
             'model'      => $model,
             'messages'   => $messages,
-            'max_tokens' => 2048,
+            'max_tokens' => 4096,
         ], $options);
 
         $response = Http::withToken($this->apiKey)
@@ -120,6 +120,12 @@ class AIService
         $data = $response->json();
 
         $content = data_get($data, 'choices.0.message.content');
+
+        // Beberapa thinking model (deepseek) taruh jawaban di reasoning_content
+        // saat max_tokens terlalu kecil — ambil dari sana sebagai fallback
+        if (empty($content)) {
+            $content = data_get($data, 'choices.0.message.reasoning_content');
+        }
 
         if (! $content) {
             throw new \RuntimeException("Respons kosong dari model {$model}");
