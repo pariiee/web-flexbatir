@@ -68,15 +68,24 @@ class PostCommentController extends Controller
             return response()->json(['message' => 'Tidak diizinkan.'], 403);
         }
 
-        // Hitung berapa komentar yang akan hilang (1 + jumlah reply)
-        $deleteCount = 1 + $postComment->replies()->count();
+        try {
+            $postId = $postComment->post_id;
 
-        $postComment->delete();
+            // Hitung berapa komentar yang akan hilang (1 + jumlah reply)
+            $deleteCount = 1 + $postComment->replies()->count();
 
-        // Kurangi comments_count sebanyak komentar yang dihapus
-        Post::where('id', $postComment->post_id)
-            ->decrement('comments_count', $deleteCount);
+            $postComment->delete();
 
-        return response()->json(['message' => 'Komentar berhasil dihapus.']);
+            // Kurangi comments_count, minimal 0
+            Post::where('id', $postId)->where('comments_count', '>', 0)
+                ->decrement('comments_count', $deleteCount);
+
+            return response()->json(['message' => 'Komentar berhasil dihapus.']);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Gagal menghapus komentar.',
+                'error'   => $e->getMessage(),
+            ], 500);
+        }
     }
 }
