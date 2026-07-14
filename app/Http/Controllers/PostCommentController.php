@@ -64,14 +64,18 @@ class PostCommentController extends Controller
      */
     public function destroy(Request $request, PostComment $postComment): JsonResponse
     {
-        if ($postComment->user_id !== $request->user()->id) {
+        if ((int) $postComment->user_id !== (int) $request->user()->id) {
             return response()->json(['message' => 'Tidak diizinkan.'], 403);
         }
 
-        $post = Post::find($postComment->post_id);
-        $post?->decrement('comments_count');
+        // Hitung berapa komentar yang akan hilang (1 + jumlah reply)
+        $deleteCount = 1 + $postComment->replies()->count();
 
         $postComment->delete();
+
+        // Kurangi comments_count sebanyak komentar yang dihapus
+        Post::where('id', $postComment->post_id)
+            ->decrement('comments_count', $deleteCount);
 
         return response()->json(['message' => 'Komentar berhasil dihapus.']);
     }
