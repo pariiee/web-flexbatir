@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
+use App\Services\AIService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -103,5 +105,26 @@ class AdminSettingController extends Controller
         return redirect()
             ->route('admin.settings.index')
             ->with('success', 'Pengaturan berhasil disimpan.');
+    }
+
+    /** Test koneksi AI via AJAX */
+    public function testAi(Request $request): JsonResponse
+    {
+        try {
+            $ai       = new AIService();
+            $prompt   = $request->input('prompt', 'Halo! Balas dengan satu kalimat singkat.');
+            $result   = $ai->ask($prompt);
+
+            return response()->json([
+                'success'    => true,
+                'content'    => $result['content'],
+                'model_used' => $result['model_used'],
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'success' => false,
+                'error'   => $e->getMessage(),
+            ], 422);
+        }
     }
 }

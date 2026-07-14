@@ -145,6 +145,53 @@
             Simpan Pengaturan
         </button>
     </form>
+
+    {{-- AI Sandbox --}}
+    <div class="card rounded-xl p-6 space-y-4">
+        <div class="flex items-center gap-3 pb-4 border-b border-[#2a2a2a]">
+            <div class="w-8 h-8 rounded-lg bg-green-500/10 flex items-center justify-center">
+                <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>
+            </div>
+            <div>
+                <h2 class="text-sm font-semibold text-white">AI Sandbox</h2>
+                <p class="text-xs text-slate-500 mt-0.5">Test koneksi dan respons AI secara langsung</p>
+            </div>
+        </div>
+
+        {{-- Prompt input --}}
+        <div>
+            <label class="block text-xs font-medium text-slate-400 mb-1.5">Prompt</label>
+            <textarea id="sandbox-prompt" rows="3"
+                placeholder="Ketik prompt untuk test AI..."
+                class="w-full rounded-lg px-4 py-2.5 text-sm resize-none"
+                style="background:#111; border:1px solid #2a2a2a; color:#f1f5f9; outline:none;"
+                onfocus="this.style.borderColor='#3B82F6'" onblur="this.style.borderColor='#2a2a2a'"
+            >Halo! Perkenalkan dirimu dalam satu kalimat.</textarea>
+        </div>
+
+        {{-- Tombol test --}}
+        <button onclick="testAi()" id="sandbox-btn"
+            class="flex items-center gap-2 px-4 py-2 bg-green-500/10 hover:bg-green-500/20 border border-green-500/20 text-green-400 text-sm font-medium rounded-lg transition-colors">
+            <svg id="sandbox-icon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span id="sandbox-btn-text">Kirim ke AI</span>
+        </button>
+
+        {{-- Result box (hidden by default) --}}
+        <div id="sandbox-result" class="hidden rounded-lg p-4 space-y-2 border text-sm">
+            <div class="flex items-center justify-between">
+                <span id="sandbox-status-badge" class="text-xs font-semibold px-2 py-0.5 rounded-full"></span>
+                <span id="sandbox-model" class="text-xs text-slate-500"></span>
+            </div>
+            <p id="sandbox-output" class="text-slate-300 leading-relaxed whitespace-pre-wrap"></p>
+        </div>
+    </div>
+
 </div>
 
 <script>
@@ -152,6 +199,70 @@ function togglePwd(id) {
     const input = document.getElementById(id);
     const isHidden = input.type === 'password';
     input.type = isHidden ? 'text' : 'password';
+}
+
+async function testAi() {
+    const prompt  = document.getElementById('sandbox-prompt').value.trim();
+    const btn     = document.getElementById('sandbox-btn');
+    const btnText = document.getElementById('sandbox-btn-text');
+    const icon    = document.getElementById('sandbox-icon');
+    const result  = document.getElementById('sandbox-result');
+    const output  = document.getElementById('sandbox-output');
+    const badge   = document.getElementById('sandbox-status-badge');
+    const model   = document.getElementById('sandbox-model');
+
+    if (!prompt) return;
+
+    // Loading state
+    btn.disabled = true;
+    btnText.textContent = 'Mengirim...';
+    icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>';
+
+    result.classList.add('hidden');
+
+    try {
+        const response = await fetch('{{ route("admin.settings.test-ai") }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify({ prompt }),
+        });
+
+        const data = await response.json();
+
+        result.classList.remove('hidden');
+
+        if (data.success) {
+            result.style.background = 'rgba(34,197,94,0.05)';
+            result.style.borderColor = 'rgba(34,197,94,0.2)';
+            badge.textContent = '✓ Berhasil';
+            badge.className = 'text-xs font-semibold px-2 py-0.5 rounded-full bg-green-500/10 text-green-400';
+            model.textContent = 'model: ' + data.model_used;
+            output.textContent = data.content;
+        } else {
+            result.style.background = 'rgba(239,68,68,0.05)';
+            result.style.borderColor = 'rgba(239,68,68,0.2)';
+            badge.textContent = '✗ Gagal';
+            badge.className = 'text-xs font-semibold px-2 py-0.5 rounded-full bg-red-500/10 text-red-400';
+            model.textContent = '';
+            output.textContent = data.error;
+        }
+    } catch (e) {
+        result.classList.remove('hidden');
+        result.style.background = 'rgba(239,68,68,0.05)';
+        result.style.borderColor = 'rgba(239,68,68,0.2)';
+        badge.textContent = '✗ Error';
+        badge.className = 'text-xs font-semibold px-2 py-0.5 rounded-full bg-red-500/10 text-red-400';
+        model.textContent = '';
+        output.textContent = e.message;
+    } finally {
+        btn.disabled = false;
+        btnText.textContent = 'Kirim ke AI';
+        icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>';
+    }
 }
 </script>
 @endsection

@@ -46,6 +46,7 @@ Route::prefix('admin')
         // Settings
         Route::get('settings',  [AdminSettingController::class, 'index'])->name('settings.index');
         Route::put('settings',  [AdminSettingController::class, 'update'])->name('settings.update');
+        Route::post('settings/test-ai', [AdminSettingController::class, 'testAi'])->name('settings.test-ai');
 
         // Users
         Route::get('users',                            [AdminUserController::class, 'index'])->name('users.index');
