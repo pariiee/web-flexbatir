@@ -17,6 +17,8 @@ use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\GearController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\InsightController;
+use App\Http\Controllers\FitnessScoreController;
+use App\Http\Controllers\LiveBeaconController;
 use Illuminate\Support\Facades\Route;
 
 // Public routes
@@ -76,6 +78,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/', [ActivityController::class, 'store']);
         Route::post('/upload', [ActivityController::class, 'upload']);
         Route::get('/following', [ActivityController::class, 'followingFeed']);
+        Route::get('/pb', [ActivityController::class, 'personalBest']);
+        Route::get('/{activity}/personal-bests', [ActivityController::class, 'checkPersonalBests'])->where('activity', '[0-9]+');
         Route::get('/{activity}', [ActivityController::class, 'show']);
         Route::put('/{activity}', [ActivityController::class, 'update']);
         Route::delete('/{activity}', [ActivityController::class, 'destroy']);
@@ -195,5 +199,20 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/', [InsightController::class, 'index']);
         Route::get('/summary', [InsightController::class, 'summary']);
         Route::delete('/{insight}', [InsightController::class, 'destroy']);
+    });
+
+    // Fitness & Freshness Score
+    Route::prefix('fitness')->group(function () {
+        Route::get('/', [FitnessScoreController::class, 'index']);
+        Route::post('/analyze', [FitnessScoreController::class, 'analyze']);
+        Route::get('/{date}', [FitnessScoreController::class, 'show']);
+    });
+
+    // Live Beacon
+    Route::prefix('live-beacon')->group(function () {
+        Route::get('/status', [LiveBeaconController::class, 'status']);
+        Route::post('/start', [LiveBeaconController::class, 'start']);
+        Route::post('/update', [LiveBeaconController::class, 'update']);
+        Route::post('/stop', [LiveBeaconController::class, 'stop']);
     });
 });

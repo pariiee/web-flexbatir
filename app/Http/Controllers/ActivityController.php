@@ -192,4 +192,119 @@ class ActivityController extends Controller
 
         return response()->json($activities);
     }
+
+    /**
+     * Personal Best — aktivitas tercepat (durasi terpendek) untuk jenis tertentu
+     * yang memiliki gps_data, milik user yang sedang login.
+     *
+     * GET /activities/pb?type=run
+     */
+    public function personalBest(Request $request): JsonResponse
+    {
+        $request->validate([
+            'type' => 'required|string|max:50',
+        ]);
+
+        $activity = Activity::where('user_id', $request->user()->id)
+            ->where('type', $request->type)
+            ->whereNotNull('gps_data')
+            ->whereNotNull('duration')
+            ->where('duration', '>', 0)
+            ->orderBy('duration', 'asc') // terpendek = tercepat
+            ->first();
+
+        if (!$activity) {
+            return response()->json(['activity' => null], 404);
+        }
+
+        return response()->json([
+            'activity' => [
+                'id'         => $activity->id,
+                'type'       => $activity->type,
+                'distance'   => $activity->distance,
+                'duration'   => $activity->duration,
+                'started_at' => $activity->started_at->toIso8601String(),
+                'gps_data'   => $activity->gps_data,
+            ],
+        ]);
+    }
+
+    /**
+     * Cek Personal Bests baru setelah aktivitas disimpan.
+     * Membandingkan pace aktivitas ini vs semua aktivitas sebelumnya
+     * pada jarak-jarak standar: 1km, 1mil, 5km, 10km, HM, marathon.
+     *
+     * GET /activities/{id}/personal-bests
+     */
+    public function checkPersonalBests(Request $request, int $id): JsonResponse
+    {
+        $activity = Activity::where('id', $id)
+            ->where('user_id', $request->user()->id)
+            ->first();
+
+        if (!$activity || !$activity->distance || !$activity->duration) {
+            return response()->json(['prs' => []]);
+        }
+
+        // Jarak standar dalam meter => label
+        $standardDistances = [
+            1000    => '1 km',
+            1609    => '1 mil',
+            5000    => '5 km',
+            10000   => '10 km',
+            21097   => 'Half Marathon',
+            42195   => 'Marathon',
+        ];
+
+        $userId  = $request->user()->id;
+        $prs     = [];
+
+        // Pace aktivitas ini (detik per meter)
+        $currentPace = $activity->duration / $activity->distance;
+
+        foreach ($standardDistances as $meters => $label) {
+            // Hanya relevan jika aktivitas ini mencakup jarak tersebut
+            if ($activity->distance < $meters * 0.95) {
+                continue;
+            }
+
+            // Ambil semua aktivitas user dengan jarak >= threshold, kecuali yg ini
+            $others = Activity::where('user_id', $userId)
+                ->where('id', '!=', $activity->id)
+                ->where('type', $activity->type)
+                ->where('distance', '>=', $meters * 0.95)
+                ->whereNotNull('duration')
+                ->where('duration', '>', 0)
+                ->get(['duration', 'distance']);
+
+            // Pace aktivitas ini untuk jarak ini
+            $myPace = $currentPace;
+
+            // Hitung rank: berapa banyak aktivitas lain yang pacenya lebih baik (lebih kecil)
+            $fasterCount = $others->filter(function ($a) use ($myPace) {
+                return ($a->duration / $a->distance) < $myPace;
+            })->count();
+
+            $rank = $fasterCount + 1;
+
+            // Hanya tampilkan jika masuk top 5 atau ini PR baru (rank 1)
+            if ($rank <= 5) {
+                $isAllTime = true; // Semua aktivitas sepanjang masa
+                // Format pace: menit:detik per km
+                $pacePerKm  = $myPace * 1000;
+                $paceMin    = (int) ($pacePerKm / 60);
+                $paceSec    = (int) ($pacePerKm % 60);
+                $timeLabel  = sprintf("%d:%02d /km", $paceMin, $paceSec);
+
+                $prs[] = [
+                    'distance_label' => $label,
+                    'time_label'     => $timeLabel,
+                    'rank'           => $rank,
+                    'is_all_time'    => $isAllTime,
+                ];
+            }
+        }
+
+        return response()->json(['prs' => $prs]);
+    }
 }
