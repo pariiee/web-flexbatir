@@ -44,10 +44,7 @@
                     <h2 class="text-lg font-bold text-white flex items-center justify-center gap-1.5">
                         {{ $user->name }}
                         @if($user->is_verified)
-                            <svg class="w-5 h-5 text-brand flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.707 8.293a1 1 0 00-1.414-1.414L10 14.172l-2.293-2.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l6-6z"/>
-                            </svg>
+                            @include('partials.verified-badge', ['size' => 22])
                         @endif
                     </h2>
                     <p class="text-sm text-slate-400">{{ $user->username ? '@'.$user->username : '-' }}</p>
@@ -62,7 +59,7 @@
                         @endif
                         @if($user->is_verified)
                             <span class="text-xs bg-brand/20 text-brand px-2.5 py-0.5 rounded-full flex items-center gap-1">
-                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                @include('partials.verified-badge', ['size' => 12])
                                 Verified
                             </span>
                         @endif
