@@ -42,7 +42,7 @@
                 </div>
                 <div>
                     <h2 class="text-lg font-bold text-white">{{ $user->name }}</h2>
-                    <p class="text-sm text-slate-400">@{{ $user->username }}</p>
+                    <p class="text-sm text-slate-400">{{ $user->username ? '@'.$user->username : '-' }}</p>
                     @if($user->is_admin)
                         <span class="inline-block mt-1 text-xs bg-brand/20 text-brand px-2.5 py-0.5 rounded-full">Admin</span>
                     @elseif($user->is_banned)

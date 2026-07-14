@@ -70,7 +70,7 @@
                                 </div>
                                 <div>
                                     <p class="font-medium text-white">{{ $user->name }}</p>
-                                    <p class="text-xs text-slate-500">@{{ $user->username }}</p>
+                                    <p class="text-xs text-slate-500">{{ $user->username ? '@'.$user->username : '-' }}</p>
                                 </div>
                             </div>
                         </td>
