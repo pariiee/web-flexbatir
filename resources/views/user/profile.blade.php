@@ -17,7 +17,7 @@
                 <label for="avatar-input" class="cursor-pointer group relative flex-shrink-0">
                     <div class="w-20 h-20 rounded-full bg-brand/20 flex items-center justify-center text-brand font-bold text-2xl overflow-hidden ring-2 ring-transparent group-hover:ring-brand transition-all">
                         @if($user->avatar)
-                            <img src="{{ $user->avatar }}" alt="" class="w-full h-full object-cover" id="avatar-preview">
+                            <img src="{{ $user->avatar_url }}" alt="" class="w-full h-full object-cover" id="avatar-preview">
                         @else
                             <span id="avatar-initial">{{ strtoupper(substr($user->name, 0, 1)) }}</span>
                             <img src="" alt="" class="w-full h-full object-cover hidden" id="avatar-preview">

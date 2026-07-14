@@ -10,7 +10,7 @@
     <div class="card rounded-2xl p-6 flex items-center gap-5">
         <div class="w-14 h-14 rounded-full bg-brand/20 flex items-center justify-center text-brand font-bold text-xl flex-shrink-0 overflow-hidden">
             @if($user->avatar)
-                <img src="{{ $user->avatar }}" alt="" class="w-full h-full object-cover">
+                <img src="{{ $user->avatar_url }}" alt="" class="w-full h-full object-cover">
             @else
                 {{ strtoupper(substr($user->name, 0, 1)) }}
             @endif

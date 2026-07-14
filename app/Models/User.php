@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
 
 #[Fillable(['name', 'username', 'email', 'password', 'avatar', 'bio', 'gender', 'birth_date', 'weight', 'height', 'location', 'website', 'measurement_preference', 'is_private', 'is_admin', 'is_banned', 'ban_reason', 'banned_at', 'is_verified'])]
@@ -66,5 +67,24 @@ class User extends Authenticatable
     public function gears(): HasMany
     {
         return $this->hasMany(Gear::class);
+    }
+
+    /**
+     * Normalize avatar ke URL yang bisa langsung dipakai di <img src>.
+     * Handle dua format:
+     *   - path relatif: "avatars/filename.jpg"  (dari Flutter API)
+     *   - URL lengkap:  "/storage/avatars/..."  (dari web upload)
+     */
+    public function getAvatarUrlAttribute(): ?string
+    {
+        if (!$this->avatar) return null;
+
+        // Sudah URL lengkap (http/https atau /storage/...)
+        if (str_starts_with($this->avatar, 'http') || str_starts_with($this->avatar, '/')) {
+            return $this->avatar;
+        }
+
+        // Path relatif → convert ke Storage URL
+        return Storage::url($this->avatar);
     }
 }

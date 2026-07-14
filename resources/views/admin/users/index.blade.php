@@ -63,7 +63,7 @@
                             <div class="flex items-center gap-3">
                                 <div class="w-9 h-9 rounded-full bg-[#2a2a2a] flex items-center justify-center overflow-hidden flex-shrink-0">
                                     @if($user->avatar)
-                                        <img src="{{ $user->avatar }}" alt="" class="w-9 h-9 object-cover">
+                                        <img src="{{ $user->avatar_url }}" alt="" class="w-9 h-9 object-cover">
                                     @else
                                         <span class="text-sm font-bold text-slate-400">{{ strtoupper(substr($user->name, 0, 1)) }}</span>
                                     @endif
