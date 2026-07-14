@@ -19,8 +19,10 @@ Route::get('/live/{token}', [LiveBeaconController::class, 'publicView'])
 
 // ── Auth Web ──────────────────────────────────────────────────────────────────
 Route::middleware('guest')->group(function () {
-    Route::get('/login',  [WebAuthController::class, 'showLogin'])->name('login');
-    Route::post('/login', [WebAuthController::class, 'login'])->name('login.post');
+    Route::get('/login',    [WebAuthController::class, 'showLogin'])->name('login');
+    Route::post('/login',   [WebAuthController::class, 'login'])->name('login.post');
+    Route::get('/register', [WebAuthController::class, 'showRegister'])->name('register');
+    Route::post('/register',[WebAuthController::class, 'register'])->name('register.post');
 });
 
 Route::post('/logout', [WebAuthController::class, 'logout'])

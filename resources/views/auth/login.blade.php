@@ -122,7 +122,13 @@
             </form>
         </div>
 
-        <p class="text-center text-xs text-slate-600 mt-6">
+        {{-- Link ke register --}}
+        <p class="text-center text-sm text-slate-500 mt-5">
+            Belum punya akun?
+            <a href="{{ route('register') }}" class="text-brand hover:text-blue-400 font-medium transition-colors">Daftar</a>
+        </p>
+
+        <p class="text-center text-xs text-slate-600 mt-4">
             FlexBatir &copy; {{ date('Y') }}
         </p>
     </div>
