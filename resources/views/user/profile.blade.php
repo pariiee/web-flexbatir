@@ -19,7 +19,7 @@
             <div>
                 <h2 class="text-xl font-bold text-white">{{ $user->name }}</h2>
                 @if($user->username)
-                    <p class="text-sm text-slate-500">@{{ $user->username }}</p>
+                    <p class="text-sm text-slate-500">{{ $user->username ? '@'.$user->username : '' }}</p>
                 @endif
                 @if($user->bio)
                     <p class="text-sm text-slate-400 mt-1">{{ $user->bio }}</p>

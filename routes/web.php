@@ -51,7 +51,10 @@ Route::prefix('admin')
         // Users
         Route::get('users',                            [AdminUserController::class, 'index'])->name('users.index');
         Route::get('users/{user}',                     [AdminUserController::class, 'show'])->name('users.show');
+        Route::get('users/{user}/edit',                [AdminUserController::class, 'edit'])->name('users.edit');
+        Route::put('users/{user}',                     [AdminUserController::class, 'update'])->name('users.update');
         Route::post('users/{user}/ban',                [AdminUserController::class, 'ban'])->name('users.ban');
         Route::patch('users/{user}/unban',             [AdminUserController::class, 'unban'])->name('users.unban');
         Route::patch('users/{user}/toggle-admin',      [AdminUserController::class, 'toggleAdmin'])->name('users.toggle-admin');
+        Route::patch('users/{user}/toggle-verified',   [AdminUserController::class, 'toggleVerified'])->name('users.toggle-verified');
     });

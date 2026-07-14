@@ -41,15 +41,32 @@
                     @endif
                 </div>
                 <div>
-                    <h2 class="text-lg font-bold text-white">{{ $user->name }}</h2>
+                    <h2 class="text-lg font-bold text-white flex items-center justify-center gap-1.5">
+                        {{ $user->name }}
+                        @if($user->is_verified)
+                            <svg class="w-5 h-5 text-brand flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.707 8.293a1 1 0 00-1.414-1.414L10 14.172l-2.293-2.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l6-6z"/>
+                            </svg>
+                        @endif
+                    </h2>
                     <p class="text-sm text-slate-400">{{ $user->username ? '@'.$user->username : '-' }}</p>
-                    @if($user->is_admin)
-                        <span class="inline-block mt-1 text-xs bg-brand/20 text-brand px-2.5 py-0.5 rounded-full">Admin</span>
-                    @elseif($user->is_banned)
-                        <span class="inline-block mt-1 text-xs bg-red-500/20 text-red-400 px-2.5 py-0.5 rounded-full">Banned</span>
-                    @else
-                        <span class="inline-block mt-1 text-xs bg-green-500/20 text-green-400 px-2.5 py-0.5 rounded-full">Aktif</span>
-                    @endif
+                    <div class="flex items-center justify-center gap-1.5 flex-wrap mt-1">
+                        @if($user->is_admin)
+                            <span class="text-xs bg-brand/20 text-brand px-2.5 py-0.5 rounded-full">Admin</span>
+                        @endif
+                        @if($user->is_banned)
+                            <span class="text-xs bg-red-500/20 text-red-400 px-2.5 py-0.5 rounded-full">Banned</span>
+                        @else
+                            <span class="text-xs bg-green-500/20 text-green-400 px-2.5 py-0.5 rounded-full">Aktif</span>
+                        @endif
+                        @if($user->is_verified)
+                            <span class="text-xs bg-brand/20 text-brand px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                Verified
+                            </span>
+                        @endif
+                    </div>
                 </div>
             </div>
 
@@ -102,6 +119,33 @@
 
             {{-- Actions --}}
             <div class="border-t border-[#2a2a2a] pt-4 space-y-2">
+
+                {{-- Edit profil --}}
+                <a href="{{ route('admin.users.edit', $user) }}"
+                   class="w-full py-2 text-sm font-medium rounded-lg border border-slate-500/50 text-slate-300 hover:bg-slate-500/10 transition-colors flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                    </svg>
+                    Edit Profil
+                </a>
+
+                {{-- Toggle verified --}}
+                <form method="POST" action="{{ route('admin.users.toggle-verified', $user) }}">
+                    @csrf @method('PATCH')
+                    <button type="submit"
+                            class="w-full py-2 text-sm font-medium rounded-lg transition-colors flex items-center justify-center gap-2
+                                {{ $user->is_verified
+                                    ? 'border border-brand/50 text-brand hover:bg-brand/10'
+                                    : 'border border-slate-500/30 text-slate-400 hover:bg-slate-500/10' }}"
+                            onclick="return confirm('{{ $user->is_verified ? 'Cabut verified?' : 'Verifikasi akun ini?' }}')">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        {{ $user->is_verified ? 'Cabut Verified' : 'Beri Centang Biru' }}
+                    </button>
+                </form>
+
+                {{-- Toggle admin --}}
                 <form method="POST" action="{{ route('admin.users.toggle-admin', $user) }}">
                     @csrf @method('PATCH')
                     <button type="submit"

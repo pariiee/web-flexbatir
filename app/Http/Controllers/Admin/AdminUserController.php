@@ -92,6 +92,49 @@ class AdminUserController extends Controller
         return back()->with('success', "User @{$user->username} telah di-unban.");
     }
 
+    // ── Edit user (form) ───────────────────────────────────────────────────────
+    public function edit(User $user)
+    {
+        return view('admin.users.edit', compact('user'));
+    }
+
+    // ── Update user ────────────────────────────────────────────────────────────
+    public function update(Request $request, User $user)
+    {
+        $data = $request->validate([
+            'name'                   => 'required|string|max:100',
+            'username'               => "required|string|max:50|unique:users,username,{$user->id}|alpha_dash",
+            'email'                  => "required|email|unique:users,email,{$user->id}",
+            'bio'                    => 'nullable|string|max:500',
+            'location'               => 'nullable|string|max:100',
+            'gender'                 => 'nullable|in:male,female,other',
+            'weight'                 => 'nullable|numeric|min:1|max:500',
+            'height'                 => 'nullable|numeric|min:1|max:300',
+            'measurement_preference' => 'nullable|in:metric,imperial',
+            'password'               => 'nullable|string|min:8',
+        ]);
+
+        if (empty($data['password'])) {
+            unset($data['password']);
+        } else {
+            $data['password'] = bcrypt($data['password']);
+        }
+
+        $user->update($data);
+
+        return redirect()->route('admin.users.show', $user)
+            ->with('success', "Profil @{$user->username} berhasil diupdate.");
+    }
+
+    // ── Toggle verified ────────────────────────────────────────────────────────
+    public function toggleVerified(User $user)
+    {
+        $user->update(['is_verified' => !$user->is_verified]);
+
+        $status = $user->is_verified ? 'diverifikasi' : 'dicabut verifikasinya';
+        return back()->with('success', "User @{$user->username} telah {$status}.");
+    }
+
     // ── Toggle admin ───────────────────────────────────────────────────────────
     public function toggleAdmin(User $user)
     {
