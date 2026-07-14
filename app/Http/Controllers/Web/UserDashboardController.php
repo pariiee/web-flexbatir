@@ -110,19 +110,33 @@ class UserDashboardController extends Controller
 
         $user = Auth::user();
 
-        // Hapus avatar lama kalau ada dan bukan URL eksternal
-        if ($user->avatar && str_starts_with($user->avatar, '/storage/')) {
-            $oldPath = str_replace('/storage/', 'public/', $user->avatar);
-            Storage::delete($oldPath);
+        try {
+            // Hapus avatar lama kalau ada dan bukan URL eksternal
+            if ($user->avatar && str_starts_with($user->avatar, '/storage/')) {
+                $oldPath = str_replace('/storage/', 'public/', $user->avatar);
+                Storage::delete($oldPath);
+            }
+
+            // Simpan dengan nama random di storage/public/avatars
+            $path = $request->file('avatar')->store('public/avatars');
+
+            if (!$path) {
+                \Log::error('Avatar upload: store() returned false');
+                return back()->withErrors(['avatar' => 'Gagal menyimpan file.']);
+            }
+
+            $url = '/storage/' . str_replace('public/', '', $path);
+
+            \Log::info("Avatar uploaded: path={$path}, url={$url}, user={$user->id}");
+
+            $user->update(['avatar' => $url]);
+
+            return back()->with('success', 'Foto profil berhasil diupdate.');
+
+        } catch (\Throwable $e) {
+            \Log::error('Avatar upload error: ' . $e->getMessage());
+            return back()->withErrors(['avatar' => 'Gagal upload: ' . $e->getMessage()]);
         }
-
-        // Simpan dengan nama random di storage/public/avatars
-        $path = $request->file('avatar')->store('public/avatars');
-        $url  = '/storage/' . str_replace('public/', '', $path);
-
-        $user->update(['avatar' => $url]);
-
-        return back()->with('success', 'Foto profil berhasil diupdate.');
     }
 
     public function updateProfile(Request $request)
