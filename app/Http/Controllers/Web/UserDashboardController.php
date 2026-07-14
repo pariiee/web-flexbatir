@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class UserDashboardController extends Controller
 {
@@ -95,6 +96,33 @@ class UserDashboardController extends Controller
     {
         $user = Auth::user();
         return view('user.profile', compact('user'));
+    }
+
+    public function uploadAvatar(Request $request)
+    {
+        $request->validate([
+            'avatar' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+        ], [
+            'avatar.image'  => 'File harus berupa gambar.',
+            'avatar.mimes'  => 'Format harus jpg, jpeg, png, atau webp.',
+            'avatar.max'    => 'Ukuran file maksimal 2MB.',
+        ]);
+
+        $user = Auth::user();
+
+        // Hapus avatar lama kalau ada dan bukan URL eksternal
+        if ($user->avatar && str_starts_with($user->avatar, '/storage/')) {
+            $oldPath = str_replace('/storage/', 'public/', $user->avatar);
+            Storage::delete($oldPath);
+        }
+
+        // Simpan dengan nama random di storage/public/avatars
+        $path = $request->file('avatar')->store('public/avatars');
+        $url  = '/storage/' . str_replace('public/', '', $path);
+
+        $user->update(['avatar' => $url]);
+
+        return back()->with('success', 'Foto profil berhasil diupdate.');
     }
 
     public function updateProfile(Request $request)
