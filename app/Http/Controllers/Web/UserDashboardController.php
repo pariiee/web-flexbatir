@@ -113,19 +113,13 @@ class UserDashboardController extends Controller
         try {
             // Hapus avatar lama kalau ada dan bukan URL eksternal
             if ($user->avatar && str_starts_with($user->avatar, '/storage/')) {
-                $oldPath = str_replace('/storage/', 'public/', $user->avatar);
-                Storage::delete($oldPath);
+                $oldPath = str_replace('/storage/', '', $user->avatar);
+                Storage::disk('public')->delete($oldPath);
             }
 
-            // Simpan dengan nama random di storage/public/avatars
-            $path = $request->file('avatar')->store('public/avatars');
-
-            if (!$path) {
-                \Log::error('Avatar upload: store() returned false');
-                return back()->withErrors(['avatar' => 'Gagal menyimpan file.']);
-            }
-
-            $url = '/storage/' . str_replace('public/', '', $path);
+            // Simpan ke disk 'public' → storage/app/public/avatars
+            $path = $request->file('avatar')->store('avatars', 'public');
+            $url  = '/storage/' . $path;
 
             \Log::info("Avatar uploaded: path={$path}, url={$url}, user={$user->id}");
 
