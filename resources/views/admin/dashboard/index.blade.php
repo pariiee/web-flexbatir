@@ -84,7 +84,7 @@
                     </div>
                     <div class="flex-1 min-w-0">
                         <p class="text-sm text-white font-medium truncate">{{ $user->name }}</p>
-                        <p class="text-xs text-slate-500 truncate">@{{ $user->username }}</p>
+                        <p class="text-xs text-slate-500 truncate">{{ $user->username ? '@'.$user->username : '-' }}</p>
                     </div>
                     @if($user->is_admin)
                         <span class="text-xs bg-brand/20 text-brand px-2 py-0.5 rounded-full">Admin</span>
