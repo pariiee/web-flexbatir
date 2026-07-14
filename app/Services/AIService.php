@@ -117,7 +117,11 @@ class AIService
             );
         }
 
-        $data = $response->json();
+        $raw  = $response->body();
+        // OpenAgentic kadang tambah "data: [DONE]" di akhir body (SSE format)
+        // — potong sebelum JSON parse
+        $json = trim(preg_replace('/data:\s*\[DONE\]\s*$/', '', trim($raw)));
+        $data = json_decode($json, true);
 
         $content = data_get($data, 'choices.0.message.content');
 
