@@ -95,10 +95,8 @@ class AIService
      */
     private function callChatEndpoint(string $model, array $messages, array $options): string
     {
-        $defaultModel = Setting::get('ai_default_model', $model);
-
         $payload = array_merge([
-            'model'      => $defaultModel !== $model ? $model : $defaultModel,
+            'model'      => $model,
             'messages'   => $messages,
             'max_tokens' => 2048,
         ], $options);
