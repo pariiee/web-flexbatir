@@ -11,6 +11,13 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
+    private function userResponse(User $user): array
+    {
+        return array_merge($user->toArray(), [
+            'avatar_url' => $user->avatar_url,
+        ]);
+    }
+
     /**
      * Register a new user.
      */
@@ -32,7 +39,7 @@ class AuthController extends Controller
 
         return response()->json([
             'message'      => 'Registrasi berhasil.',
-            'user'         => $user,
+            'user'         => $this->userResponse($user),
             'access_token' => $token,
             'token_type'   => 'Bearer',
         ], 201);
@@ -59,7 +66,7 @@ class AuthController extends Controller
 
         return response()->json([
             'message'      => 'Login berhasil.',
-            'user'         => $user,
+            'user'         => $this->userResponse($user),
             'access_token' => $token,
             'token_type'   => 'Bearer',
         ]);
@@ -83,7 +90,7 @@ class AuthController extends Controller
     public function me(Request $request): JsonResponse
     {
         return response()->json([
-            'user' => $request->user(),
+            'user' => $this->userResponse($request->user()),
         ]);
     }
 }
