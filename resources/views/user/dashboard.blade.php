@@ -18,8 +18,7 @@
         <div>
             <h2 class="text-lg font-bold text-white">Halo, {{ $user->name }}! 👋</h2>
             <p class="text-sm text-slate-500">
-                @if($user->username) @{{ $user->username }} · @endif
-                {{ $followersCount }} followers · {{ $followingCount }} following
+                {{ $user->username ? '@'.$user->username.' · ' : '' }}{{ $followersCount }} followers · {{ $followingCount }} following
             </p>
         </div>
         <div class="ml-auto hidden sm:flex gap-2">
