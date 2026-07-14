@@ -96,4 +96,35 @@ class UserDashboardController extends Controller
         $user = Auth::user();
         return view('user.profile', compact('user'));
     }
+
+    public function updateProfile(Request $request)
+    {
+        $user = Auth::user();
+
+        $data = $request->validate([
+            'name'                   => 'required|string|max:100',
+            'username'               => "required|string|max:50|unique:users,username,{$user->id}|alpha_dash",
+            'bio'                    => 'nullable|string|max:500',
+            'location'               => 'nullable|string|max:100',
+            'gender'                 => 'nullable|in:male,female,other',
+            'weight'                 => 'nullable|numeric|min:1|max:500',
+            'height'                 => 'nullable|numeric|min:1|max:300',
+            'measurement_preference' => 'nullable|in:metric,imperial',
+            'password'               => 'nullable|string|min:8|confirmed',
+        ], [
+            'username.unique'    => 'Username sudah dipakai.',
+            'username.alpha_dash'=> 'Username hanya boleh huruf, angka, strip, dan underscore.',
+            'password.confirmed' => 'Konfirmasi password tidak cocok.',
+        ]);
+
+        if (empty($data['password'])) {
+            unset($data['password']);
+        } else {
+            $data['password'] = bcrypt($data['password']);
+        }
+
+        $user->update($data);
+
+        return back()->with('success', 'Profil berhasil diupdate.');
+    }
 }

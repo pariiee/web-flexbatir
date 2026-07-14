@@ -31,8 +31,9 @@ Route::post('/logout', [WebAuthController::class, 'logout'])
 
 // ── User Dashboard ────────────────────────────────────────────────────────────
 Route::middleware('auth')->prefix('dashboard')->name('user.')->group(function () {
-    Route::get('/',        [UserDashboardController::class, 'index'])->name('dashboard');
-    Route::get('/profile', [UserDashboardController::class, 'profile'])->name('profile');
+    Route::get('/',              [UserDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/profile',       [UserDashboardController::class, 'profile'])->name('profile');
+    Route::put('/profile',       [UserDashboardController::class, 'updateProfile'])->name('profile.update');
 });
 
 // ── Admin Routes ──────────────────────────────────────────────────────────────

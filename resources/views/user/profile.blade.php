@@ -83,18 +83,141 @@
         </div>
     </div>
 
-    {{-- Untuk edit profil, gunakan aplikasi mobile --}}
-    <div class="card rounded-2xl p-5 flex items-center gap-4">
-        <div class="w-10 h-10 rounded-xl bg-brand/10 flex items-center justify-center flex-shrink-0">
-            <svg class="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
-            </svg>
+    {{-- Form Edit Profil --}}
+    <div class="card rounded-2xl p-6">
+        <h3 class="text-sm font-semibold text-white border-b border-[#2a2a2a] pb-3 mb-5">Edit Profil</h3>
+
+        @if(session('success'))
+        <div class="mb-4 text-sm text-green-400 bg-green-400/10 border border-green-400/20 rounded-lg px-4 py-3">
+            {{ session('success') }}
         </div>
-        <div>
-            <p class="text-sm font-medium text-white">Edit profil via aplikasi</p>
-            <p class="text-xs text-slate-500">Untuk mengubah data profil, gunakan aplikasi FlexBatir di smartphone kamu.</p>
+        @endif
+
+        @if($errors->any())
+        <div class="mb-4 text-sm text-red-400 bg-red-400/10 border border-red-400/20 rounded-lg px-4 py-3 space-y-1">
+            @foreach($errors->all() as $error)
+                <p>• {{ $error }}</p>
+            @endforeach
         </div>
+        @endif
+
+        <form method="POST" action="{{ route('user.profile.update') }}" class="space-y-4">
+            @csrf
+            @method('PUT')
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {{-- Nama --}}
+                <div class="sm:col-span-2">
+                    <label class="block text-xs font-medium text-slate-400 mb-1.5">Nama Lengkap</label>
+                    <input type="text" name="name" value="{{ old('name', $user->name) }}" required
+                           class="w-full rounded-lg px-4 py-2.5 text-sm text-white"
+                           style="background:#111; border:1px solid #2a2a2a; outline:none;"
+                           onfocus="this.style.borderColor='#3B82F6'" onblur="this.style.borderColor='#2a2a2a'">
+                </div>
+
+                {{-- Username --}}
+                <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1.5">Username</label>
+                    <input type="text" name="username" value="{{ old('username', $user->username) }}" required
+                           class="w-full rounded-lg px-4 py-2.5 text-sm text-white"
+                           style="background:#111; border:1px solid #2a2a2a; outline:none;"
+                           onfocus="this.style.borderColor='#3B82F6'" onblur="this.style.borderColor='#2a2a2a'">
+                </div>
+
+                {{-- Gender --}}
+                <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1.5">Gender</label>
+                    <select name="gender"
+                            class="w-full rounded-lg px-4 py-2.5 text-sm text-white"
+                            style="background:#111; border:1px solid #2a2a2a; outline:none;"
+                            onfocus="this.style.borderColor='#3B82F6'" onblur="this.style.borderColor='#2a2a2a'">
+                        <option value="">-- Pilih --</option>
+                        <option value="male"   {{ old('gender', $user->gender) === 'male'   ? 'selected' : '' }}>Laki-laki</option>
+                        <option value="female" {{ old('gender', $user->gender) === 'female' ? 'selected' : '' }}>Perempuan</option>
+                        <option value="other"  {{ old('gender', $user->gender) === 'other'  ? 'selected' : '' }}>Lainnya</option>
+                    </select>
+                </div>
+
+                {{-- Bio --}}
+                <div class="sm:col-span-2">
+                    <label class="block text-xs font-medium text-slate-400 mb-1.5">Bio</label>
+                    <textarea name="bio" rows="2"
+                              class="w-full rounded-lg px-4 py-2.5 text-sm text-white resize-none"
+                              style="background:#111; border:1px solid #2a2a2a; outline:none;"
+                              onfocus="this.style.borderColor='#3B82F6'" onblur="this.style.borderColor='#2a2a2a'"
+                              placeholder="Cerita singkat tentang kamu...">{{ old('bio', $user->bio) }}</textarea>
+                </div>
+
+                {{-- Lokasi --}}
+                <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1.5">Lokasi</label>
+                    <input type="text" name="location" value="{{ old('location', $user->location) }}"
+                           placeholder="Jakarta, Indonesia"
+                           class="w-full rounded-lg px-4 py-2.5 text-sm text-white"
+                           style="background:#111; border:1px solid #2a2a2a; outline:none;"
+                           onfocus="this.style.borderColor='#3B82F6'" onblur="this.style.borderColor='#2a2a2a'">
+                </div>
+
+                {{-- Satuan --}}
+                <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1.5">Satuan Ukuran</label>
+                    <select name="measurement_preference"
+                            class="w-full rounded-lg px-4 py-2.5 text-sm text-white"
+                            style="background:#111; border:1px solid #2a2a2a; outline:none;"
+                            onfocus="this.style.borderColor='#3B82F6'" onblur="this.style.borderColor='#2a2a2a'">
+                        <option value="metric"   {{ old('measurement_preference', $user->measurement_preference) === 'metric'   ? 'selected' : '' }}>Metric (km, kg)</option>
+                        <option value="imperial" {{ old('measurement_preference', $user->measurement_preference) === 'imperial' ? 'selected' : '' }}>Imperial (mi, lbs)</option>
+                    </select>
+                </div>
+
+                {{-- Berat --}}
+                <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1.5">Berat (kg)</label>
+                    <input type="number" name="weight" value="{{ old('weight', $user->weight) }}"
+                           min="1" max="500" step="0.1" placeholder="70"
+                           class="w-full rounded-lg px-4 py-2.5 text-sm text-white"
+                           style="background:#111; border:1px solid #2a2a2a; outline:none;"
+                           onfocus="this.style.borderColor='#3B82F6'" onblur="this.style.borderColor='#2a2a2a'">
+                </div>
+
+                {{-- Tinggi --}}
+                <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1.5">Tinggi (cm)</label>
+                    <input type="number" name="height" value="{{ old('height', $user->height) }}"
+                           min="1" max="300" step="0.1" placeholder="170"
+                           class="w-full rounded-lg px-4 py-2.5 text-sm text-white"
+                           style="background:#111; border:1px solid #2a2a2a; outline:none;"
+                           onfocus="this.style.borderColor='#3B82F6'" onblur="this.style.borderColor='#2a2a2a'">
+                </div>
+
+                {{-- Password baru --}}
+                <div class="sm:col-span-2">
+                    <label class="block text-xs font-medium text-slate-400 mb-1.5">
+                        Password Baru
+                        <span class="text-slate-600 font-normal ml-1">(kosongkan jika tidak ingin mengubah)</span>
+                    </label>
+                    <input type="password" name="password" placeholder="Min. 8 karakter"
+                           class="w-full rounded-lg px-4 py-2.5 text-sm text-white"
+                           style="background:#111; border:1px solid #2a2a2a; outline:none;"
+                           onfocus="this.style.borderColor='#3B82F6'" onblur="this.style.borderColor='#2a2a2a'">
+                </div>
+
+                {{-- Konfirmasi password --}}
+                <div class="sm:col-span-2">
+                    <label class="block text-xs font-medium text-slate-400 mb-1.5">Konfirmasi Password Baru</label>
+                    <input type="password" name="password_confirmation" placeholder="Ulangi password baru"
+                           class="w-full rounded-lg px-4 py-2.5 text-sm text-white"
+                           style="background:#111; border:1px solid #2a2a2a; outline:none;"
+                           onfocus="this.style.borderColor='#3B82F6'" onblur="this.style.borderColor='#2a2a2a'">
+                </div>
+            </div>
+
+            <button type="submit"
+                    class="w-full py-2.5 rounded-xl text-sm font-semibold text-white transition-colors"
+                    style="background:#3B82F6;">
+                Simpan Perubahan
+            </button>
+        </form>
     </div>
 
 </div>
