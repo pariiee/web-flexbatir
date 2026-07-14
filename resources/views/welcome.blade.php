@@ -302,7 +302,10 @@
         <li><a href="#cara-kerja">Cara Kerja</a></li>
         <li><a href="#api">API</a></li>
     </ul>
-    <a href="https://flexbatir.web.id/api" class="btn btn-outline" target="_blank">Docs API</a>
+    <div style="display:flex; gap:.75rem; align-items:center;">
+        <a href="https://flexbatir.web.id/api" class="btn btn-outline" target="_blank">Docs API</a>
+        <a href="{{ route('login') }}" class="btn btn-primary">Masuk</a>
+    </div>
 </nav>
 
 {{-- HERO --}}
@@ -312,8 +315,8 @@
         <h1>Flex. Grind.<br><span>Pamer.</span></h1>
         <p>Bukan cuma tracker biasa. FlexBatir adalah tempat kamu buktiin ke dunia bahwa kamu lebih rajin dari mereka.</p>
         <div class="hero-cta">
-            <a href="#fitur" class="btn btn-primary">Mulai Flex Sekarang</a>
-            <a href="https://flexbatir.web.id/api" class="btn btn-outline" target="_blank">Explore API</a>
+            <a href="{{ route('login') }}" class="btn btn-primary">Masuk ke Dashboard</a>
+            <a href="#fitur" class="btn btn-outline">Lihat Fitur</a>
         </div>
         <div class="hero-stats">
             <div class="stat-item">
